@@ -43,6 +43,7 @@
 
 
 .cardjs input.card-number {
+  padding-left: 38px;
   padding-right: 48px;
 }
 
@@ -54,8 +55,20 @@
   display: inline-block;
 }
 
+.cardjs .card-number-wrapper .icon {
+  position: absolute;
+  display: block;
+  width:26px;
+  height:17px;
+  left: 8px;
+  top: 11px;
+}
+.cardjs .card-number-wrapper .icon .svg {
+  fill: #676767;
+}
+
+
 .cardjs .card-number-wrapper .card-type-icon {
-  content: ' ';
   height:23px;
   width:32px;
   position: absolute;
