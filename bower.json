@@ -1,0 +1,29 @@
+{
+  "name": "cardjs",
+  "authors": [
+    "Colin Stannard <colin@cbsindustries.com>"
+  ],
+  "description": "Credit Card input form with validation",
+  "main": "dist/cardjs.min.js",
+  "homepage": "https://cardjs.co.uk",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "Card JS",
+    "Credit Card Input",
+    "Credit Card Form",
+    "Credit Card Validation"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "1.11.1"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

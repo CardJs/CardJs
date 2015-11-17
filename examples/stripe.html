@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CardJs Stripe Example</title>
+
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+  <!--<script src="https://js.stripe.com/v2"></script>-->
+  <link href="../dist/cardjs.min.css" rel="stylesheet" type="text/css" />
+  <script src="../dist/cardjs.min.js"></script>
+
+</head>
+<body>
+
+  <form id="subscription-form">
+
+    <!-- CardJs -->
+    <div class="cardjs">
+      <input class="card-number" data-stripe="number">
+      <input class="expiry-month" data-stripe="exp-month">
+      <input class="expiry-year" data-stripe="exp-year">
+      <input class="cvc" data-stripe="cvc">
+    </div>
+
+    <button>Pay Now!</button>
+
+  </form>
+
+</body>
+
+
+
+<script>
+$(function() {
+/*
+  Stripe.setPublishableKey("publishable-key-goes-here");
+
+  $("#subscription-form button").click(function() {
+
+    var form              = $("#subscription-form");
+    var submit            = form.find("button");
+    var submitInitialText = submit.text();
+
+    submit.attr("disabled", "disabled").text("Just one moment");
+
+    Stripe.card.createToken(form, function(status, response) {
+      if(response.error) {
+        form.find(".stripe-errors").text(response.error.message).show();
+        submit.removeAttr("disabled");
+        submit.text(submitInitialText);
+      } else {
+        form.append($("<input type='hidden' name='token'>").val(response.id));
+        form.submit();
+      }
+    });
+
+  });
+*/
+});
+</script>
+</html>
