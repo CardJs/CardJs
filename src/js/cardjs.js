@@ -209,6 +209,26 @@
   }
 
 
+  function setCaretPosition(element, caretPos) {
+
+    if(element != null) {
+      if(element.createTextRange) {
+        var range = element.createTextRange();
+        range.move('character', caretPos);
+        range.select();
+      }
+      else {
+        if(element.selectionStart) {
+          element.focus();
+          element.setSelectionRange(caretPos, caretPos);
+        }
+        else
+          element.focus();
+      }
+    }
+  }
+
+
 
   function initCardNumberInput() {
     cardNumberInput = displayElement.find(".card-number");
@@ -530,6 +550,16 @@
   }
 
 
+  function denormaliseCaretPosition(mask, caretPosition) {
+    var numberPos = 0;
+    if(caretPosition < 0 || caretPosition > mask.length) { return 0; }
+    for(var i = 0; i < mask.length; i++) {
+      if(numberPos == caretPosition) { return i; }
+      if(mask[i] == "X") { numberPos++; }
+    }
+    return mask.length;
+  }
+
 
   function handleMaskedNumberInputKey(e, mask) {
     handleNumberOnlyKey(e);
@@ -537,16 +567,18 @@
     var keyCode = e.which || e.keyCode;
     var digit = String.fromCharCode(keyCode);
 
-    var caretStart = caretStartPosition(e.target);
-    var caretEnd = caretEndPosition(e.target);
+    var element = e.target;
+
+    var caretStart = caretStartPosition(element);
+    var caretEnd = caretEndPosition(element);
 
 
     // Calculate normalised caret position
     var normalisedStartCaretPosition = normaliseCaretPosition(mask, caretStart);
     var normalisedEndCaretPosition = normaliseCaretPosition(mask, caretEnd);
 
-    console.log(normalisedStartCaretPosition + " - " + normalisedEndCaretPosition);
 
+    var newCaretPosition = caretStart;
 
     var isNumber = keyCode >= KEY_0 && keyCode <= KEY_9;
     var isDelete = keyCode == KEY_DELETE;
@@ -554,7 +586,7 @@
 
     if(isNumber || isDelete || isBackspace) {
       e.preventDefault();
-      var rawText = $(e.target).val();
+      var rawText = $(element).val();
       var numbersOnly = numbersOnlyString(rawText);
 
       var rangeHighlighted = normalisedEndCaretPosition > normalisedStartCaretPosition;
@@ -570,8 +602,10 @@
         // Insert number digit
         if(isNumber && rawText.length < mask.length) {
           numbersOnly = (numbersOnly.slice(0, normalisedStartCaretPosition) + digit + numbersOnly.slice(normalisedStartCaretPosition));
+          newCaretPosition = denormaliseCaretPosition(mask, normalisedStartCaretPosition + 2) - 1;
         }
 
+        // Delete
         if(isDelete) {
           numbersOnly = (numbersOnly.slice(0, normalisedStartCaretPosition) + numbersOnly.slice(normalisedStartCaretPosition + 1));
         }
@@ -584,14 +618,14 @@
         // Backspace
         if(isBackspace && !rangeHighlighted) {
           numbersOnly = (numbersOnly.slice(0, normalisedStartCaretPosition - 1) + numbersOnly.slice(normalisedStartCaretPosition));
+          newCaretPosition = denormaliseCaretPosition(mask, normalisedStartCaretPosition - 1);
         }
       }
 
 
+      $(element).val(applyFormatMask(numbersOnly, mask));
 
-      // Backward deletion
-
-      $(e.target).val(applyFormatMask(numbersOnly, mask));
+      setCaretPosition(element, newCaretPosition);
     }
   }
 
