@@ -333,7 +333,7 @@
 
 
   function setupExpiryInput() {
-    displayElement.append("<div class='expiry-wrapper'></div>");
+    displayElement.append("<div class='expiry-container'><div class='expiry-wrapper'></div></div>");
     var wrapper = displayElement.find(".expiry-wrapper");
 
     var expiryInput;
@@ -401,7 +401,7 @@
 
 
   function setupCvcInput() {
-    displayElement.append("<div class='cvc-wrapper'></div>");
+    displayElement.append("<div class='cvc-container'><div class='cvc-wrapper'></div></div>");
     var wrapper = displayElement.find(".cvc-wrapper");
     wrapper.append(cvcInput);
     wrapper.append("<div class='icon'></div>");
@@ -464,7 +464,7 @@
     var isDeletion = keyCode == KEY_BACKSPACE || keyCode == KEY_DELETE;
     var isArrow = keyCode >= KEY_ARROW_LEFT && keyCode <= KEY_ARROW_DOWN;
     var isNavigation = keyCode == KEY_HOME || keyCode == KEY_END;
-    var isKeyboardCommand = e.ctrlKey && (keyCode == KEY_A || keyCode == KEY_X || keyCode == KEY_C || keyCode == KEY_V);
+    var isKeyboardCommand = (e.ctrlKey || e.metaKey) && (keyCode == KEY_A || keyCode == KEY_X || keyCode == KEY_C || keyCode == KEY_V);
     var isTab = keyCode == KEY_TAB;
 
     if(!isNumber && !isDeletion && !isArrow && !isNavigation && !isKeyboardCommand && !isTab) {

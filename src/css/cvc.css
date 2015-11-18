@@ -1,6 +1,11 @@
+.cardjs .cvc-container {
+  width: 50%;
+  float: right;
+}
+
 .cardjs .cvc-wrapper {
   box-sizing: border-box;
-  padding-left: 5px;
+  margin-left: 5px;
 }
 .cardjs .cvc-wrapper .cvc {
   display: block;

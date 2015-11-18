@@ -1,4 +1,9 @@
 .cardjs .card-number-wrapper,
+.cardjs .name-wrapper {
+  margin-bottom: 15px;
+}
+
+.cardjs .card-number-wrapper,
 .cardjs .name-wrapper,
 .cardjs .expiry-wrapper,
 .cardjs .cvc-wrapper {
@@ -8,24 +13,24 @@
   -o-box-shadow: 0 1px 0 rgba(255,255,255,0.7),inset 0 1px 0 rgba(255,255,255,0.7);
   box-shadow:0 1px 0 rgba(255,255,255,0.7),inset 0 1px 0 rgba(255,255,255,0.7);
 
-  margin-bottom: 15px;
   position: relative;
 }
 
 
 .cardjs .card-number-wrapper,
 .cardjs .name-wrapper,
-.cardjs .cvc-wrapper {
+.cardjs .cvc-container,
+.cardjs .expiry-container {
   display: inline-block;
 }
 
 
 
-.cardjs .expiry-wrapper,
-.cardjs .cvc-wrapper {
-  width: 50%;
+.cardjs::after {
+  content: ' ';
+  display: table;
+  clear: both;
 }
-
 
 
 
