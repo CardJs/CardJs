@@ -91,18 +91,22 @@
 
       settings = $.extend({
 
-        captureName: true,
+        captureName: this.data("capture-name") ? this.data("capture-name") : false,
 
         creditCardNumberMask: "XXXX XXXX XXXX XXXX",
         creditCardNumberPlaceholder: "Card number",
 
         namePlaceholder: "Name on card",
 
-        expiryUseDropDowns: true,
+        expiryMask: "XX / XX",
+        expiryPlaceholder: "MM / YY",
+        expiryUseDropDowns: false,
         expiryNumberOfYears: 10,
 
         cvcMask: "XXXX",
-        cvcPlaceholder: "CVC"
+        cvcPlaceholder: "CVC",
+
+        iconColour: this.data("icon-colour") ? this.data("icon-colour") : false
 
       }, options);
 
@@ -112,8 +116,8 @@
       // --- --- --- --- --- --- --- --- --- ---
 
       // Override icon color
-      if(settings.iconColor) {
-        var style = $('<style>.cardjs .icon .svg { fill: ' + settings.iconColor + ' !important; }</style>')
+      if(settings.iconColour) {
+        var style = $('<style>.cardjs .icon .svg { fill: ' + settings.iconColour + ' !important; }</style>')
         $('html > head').append(style);
       }
 
@@ -171,12 +175,28 @@
 
 
 
+  function caretStartPosition(element) {
+    if(typeof element.selectionStart == "number") {
+      return element.selectionStart;
+    }
+  }
+
+
+  function caretEndPosition(element) {
+    if(typeof element.selectionEnd == "number") {
+      return element.selectionEnd;
+    }
+  }
 
 
 
   function initCardNumberInput() {
     cardNumberInput = displayElement.find(".card-number");
-    cardNumberInput.detach();
+    if(cardNumberInput[0]) {
+      cardNumberInput.detach();
+    } else {
+      cardNumberInput = $("<input class='card-number' />");
+    }
 
     cardNumberInput.attr("type", "tel");
     if(!cardNumberInput.attr("placeholder")) { cardNumberInput.attr("placeholder", settings.creditCardNumberPlaceholder) }
@@ -207,24 +227,30 @@
 
   function initExpiryMonthInput() {
     expiryMonthInput = displayElement.find(".expiry-month");
-    if(expiryMonthInput) {
+    if(expiryMonthInput[0]) {
       expiryMonthInput.detach();
+    } else {
+      expiryMonthInput = $("<input class='expiry-month' />");
     }
   }
 
 
   function initExpiryYearInput() {
     expiryYearInput = displayElement.find(".expiry-year");
-    if(expiryYearInput) {
+    if(expiryYearInput[0]) {
       expiryYearInput.detach();
+    } else {
+      expiryYearInput = $("<input class='expiry-year' />");
     }
   }
 
 
   function initCvcInput() {
     cvcInput = displayElement.find(".cvc");
-    if(cvcInput) {
+    if(cvcInput[0]) {
       cvcInput.detach();
+    } else {
+      cvcInput = $("<input class='cvc' />");
     }
 
     cvcInput.attr("type", "tel");
@@ -270,7 +296,11 @@
     displayElement.append("<div class='expiry-wrapper'></div>");
     var wrapper = displayElement.find(".expiry-wrapper");
 
+    var expiryInput;
+
     if(settings.expiryUseDropDowns) {
+      expiryInput = $("<div></div>");
+
       var expiryMonthNew = $(
         "<select>" +
         "<option value='any' selected='' hidden=''>MM</option>" +
@@ -303,11 +333,30 @@
       copyAllElementAttributes(expiryYearOld, expiryYearNew);
       expiryYearInput.remove();
       expiryYearInput = expiryYearNew;
+
+
+      expiryInput.append(expiryMonthInput);
+      expiryInput.append(expiryYearInput);
+
+    } else {
+
+      expiryInput = $("<input class='expiry' />");
+
+      if(!expiryInput.attr("placeholder")) { expiryInput.attr("placeholder", settings.expiryPlaceholder) }
+      expiryInput.attr("maxlength", settings.expiryMask.length);
+      expiryInput.attr("x-autocompletetype", "cc-exp");
+      expiryInput.attr("autocompletetype", "cc-exp");
+      expiryInput.attr("autocorrect", "off");
+      expiryInput.attr("spellcheck", "off");
+      expiryInput.attr("autocapitalize", "off");
+
+      expiryInput.keydown(handleExpiryKey);
     }
 
 
-    wrapper.append(expiryMonthInput);
-    wrapper.append(expiryYearInput);
+    wrapper.append(expiryInput);
+    wrapper.append("<div class='icon'></div>");
+    wrapper.find(".icon").append(calendarSvg);
   }
 
 
@@ -414,12 +463,16 @@
     for(var j = 0; j < mask.length; j++) {
       var currentMaskChar = mask[j];
       if(currentMaskChar == "X") {
+        var digit = string.charAt(numberPos);
+        if(!digit) {
+          break;
+        }
         formattedString += string.charAt(numberPos);
         numberPos++;
       } else {
         formattedString += currentMaskChar;
       }
-      if(numberPos >= string.length) { break; }
+      //if(numberPos >= string.length) { break; }
     }
     return formattedString;
   }
@@ -433,22 +486,96 @@
 
 
   function handleCreditCardNumberKey(e) {
-    handleNumberOnlyKey(e);
-    var keyCode = e.which || e.keyCode;
-    var char = String.fromCharCode(keyCode);
-
-
-    // Handle Number
-    if(!isNaN(parseInt(char))) {
-      e.preventDefault();
-      var numbersOnly = numbersOnlyString(cardNumberInput.val()) + char;
-      var formatted = applyFormatMask(numbersOnly, settings.creditCardNumberMask);
-      $(e.target).val(formatted);
-    }
-
-    // Handle Backspace
-    //if(keyCode == KEY_BACKSPACE)
+    handleMaskedNumberInputKey(e, settings.creditCardNumberMask);
   }
+
+
+  function handleExpiryKey(e) {
+    //if (/^\d$/.test(val) && (val !== "0" && val !== "1")) {
+
+    //}
+    handleMaskedNumberInputKey(e, settings.expiryMask);
+  }
+
+
+
+  function normaliseCaretPosition(mask, caretPosition) {
+    var numberPos = 0;
+    if(caretPosition < 0 || caretPosition > mask.length) { return 0; }
+    for(var i = 0; i < mask.length; i++) {
+      if(i == caretPosition) { return numberPos; }
+      if(mask[i] == "X") { numberPos++; }
+    }
+    return numberPos;
+  }
+
+
+
+  function handleMaskedNumberInputKey(e, mask) {
+    handleNumberOnlyKey(e);
+
+    var keyCode = e.which || e.keyCode;
+    var digit = String.fromCharCode(keyCode);
+
+    var caretStart = caretStartPosition(e.target);
+    var caretEnd = caretEndPosition(e.target);
+
+
+    // Calculate normalised caret position
+    var normalisedStartCaretPosition = normaliseCaretPosition(mask, caretStart);
+    var normalisedEndCaretPosition = normaliseCaretPosition(mask, caretEnd);
+
+    console.log(normalisedStartCaretPosition + " - " + normalisedEndCaretPosition);
+
+
+    var isNumber = keyCode >= KEY_0 && keyCode <= KEY_9;
+    var isDelete = keyCode == KEY_DELETE;
+    var isBackspace = keyCode == KEY_BACKSPACE;
+
+    if(isNumber || isDelete || isBackspace) {
+      e.preventDefault();
+      var rawText = $(e.target).val();
+      var numbersOnly = numbersOnlyString(rawText);
+
+      var rangeHighlighted = normalisedEndCaretPosition > normalisedStartCaretPosition;
+
+      // Remove values highlighted (if highlighted)
+      if(rangeHighlighted) {
+        numbersOnly = (numbersOnly.slice(0, normalisedStartCaretPosition) + numbersOnly.slice(normalisedEndCaretPosition));
+      }
+
+      // Forward Action
+      if(caretStart != mask.length) {
+
+        // Insert number digit
+        if(isNumber && rawText.length < mask.length) {
+          numbersOnly = (numbersOnly.slice(0, normalisedStartCaretPosition) + digit + numbersOnly.slice(normalisedStartCaretPosition));
+        }
+
+        if(isDelete) {
+          numbersOnly = (numbersOnly.slice(0, normalisedStartCaretPosition) + numbersOnly.slice(normalisedStartCaretPosition + 1));
+        }
+
+      }
+
+      // Backward Action
+      if(caretStart != 0) {
+
+        // Backspace
+        if(isBackspace && !rangeHighlighted) {
+          numbersOnly = (numbersOnly.slice(0, normalisedStartCaretPosition - 1) + numbersOnly.slice(normalisedStartCaretPosition));
+        }
+      }
+
+
+
+      // Backward deletion
+
+      $(e.target).val(applyFormatMask(numbersOnly, mask));
+    }
+  }
+
+
 
 
 

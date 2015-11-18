@@ -2,8 +2,6 @@
 .cardjs .name-wrapper,
 .cardjs .expiry-wrapper,
 .cardjs .cvc-wrapper {
-  display: inline-block;
-
   -webkit-box-shadow:0 1px 0 rgba(255,255,255,0.7),inset 0 1px 0 rgba(255,255,255,0.7);
   -moz-box-shadow:0 1px 0 rgba(255,255,255,0.7),inset 0 1px 0 rgba(255,255,255,0.7);
   -ms-box-shadow:0 1px 0 rgba(255,255,255,0.7),inset 0 1px 0 rgba(255,255,255,0.7);
@@ -14,32 +12,21 @@
   position: relative;
 }
 
+
+.cardjs .card-number-wrapper,
+.cardjs .name-wrapper,
+.cardjs .cvc-wrapper {
+  display: inline-block;
+}
+
+
+
 .cardjs .expiry-wrapper,
 .cardjs .cvc-wrapper {
   width: 50%;
 }
 
 
-
-.cardjs .expiry-wrapper {
-  box-sizing: border-box;
-  padding-right: 5px;
-}
-.cardjs .expiry-wrapper select {
-  display: inline-block;
-  width: 50%;
-}
-
-
-
-.cardjs .cvc-wrapper {
-  box-sizing: border-box;
-  padding-left: 5px;
-}
-.cardjs .cvc-wrapper .cvc {
-  display: block;
-  width: 100%;
-}
 
 
 
@@ -60,7 +47,7 @@
   background-color: #FBFBFB;
 
   box-sizing: border-box;
-  padding: 0 3px;
+  padding: 0;
 
   -webkit-transition: border-color .15s linear,box-shadow .15s linear;
   -moz-transition: border-color .15s linear,box-shadow .15s linear;
@@ -118,38 +105,6 @@
 
 
 
-.cardjs .expiry-wrapper .expiry-month {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.cardjs .expiry-wrapper .expiry-year {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-left: 0;
-}
-
-
-
-
-
-
-
-
-
-
-.cardjs .icon {
-  position: absolute;
-  display: block;
-  width:26px;
-  height:17px;
-  left: 8px;
-  top: 10px;
-  pointer-events: none;
-}
-.cardjs .icon .svg {
-  fill: #559A28;
-}
 
 
 
@@ -165,50 +120,4 @@
 .cardjs input.cvc {
   padding-left: 38px;
   width: 100%;
-}
-
-.cardjs input.card-number {
-  padding-right: 48px;
-}
-
-
-
-
-.cardjs .card-number-wrapper .card-type-icon {
-  height:23px;
-  width:32px;
-  position: absolute;
-  display: block;
-  right: 8px;
-  top: 7px;
-  background: url("../img/cards.png") no-repeat 0px 23px;
-  pointer-events: none;
-  opacity: 0;
-
-  -webkit-transition: opacity .15s linear;
-  -moz-transition: opacity .15s linear;
-  -ms-transition: opacity .15s linear;
-  -o-transition: opacity .15s linear;
-  transition: opacity .15s linear;
-}
-.cardjs .card-number-wrapper .show {
-  opacity: 1;
-}
-.cardjs .card-number-wrapper .card-type-icon.visa {
-  background-position:0px 0px;
-}
-.cardjs .card-number-wrapper .card-type-icon.master-card {
-  background-position:-32px 0px;
-}
-.cardjs .card-number-wrapper .card-type-icon.american-express {
-  background-position:-64px 0px;
-}
-.cardjs .card-number-wrapper .card-type-icon.discover {
-  background-position:-96px 0px;
-}
-.cardjs .card-number-wrapper .card-type-icon.diners {
-  background-position:-128px 0px;
-}
-.cardjs .card-number-wrapper .card-type-icon.jcb {
-  background-position:-160px 0px;
 }

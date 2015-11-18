@@ -1,0 +1,12 @@
+.cardjs .icon {
+  position: absolute;
+  display: block;
+  width:26px;
+  height:17px;
+  left: 8px;
+  top: 10px;
+  pointer-events: none;
+}
+.cardjs .icon .svg {
+  fill: #888;
+}

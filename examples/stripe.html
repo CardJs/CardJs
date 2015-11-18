@@ -65,13 +65,7 @@
   <div class="panel">
     <form id="subscription-form">
 
-      <!-- CardJs -->
-      <div class="cardjs">
-        <input class="card-number shadow" data-stripe="number">
-        <input class="expiry-month" data-stripe="exp-month">
-        <input class="expiry-year" data-stripe="exp-year">
-        <input class="cvc" data-stripe="cvc">
-      </div>
+      <div class="cardjs stripe" data-capture-name="true"></div>
 
       <button class="btn">Pay $20</button>
 
