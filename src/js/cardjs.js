@@ -84,6 +84,7 @@
   var expiryYearInput;
   var cvcInput;
 
+  var style;
 
   var methods = {
     init : function(options) {
@@ -109,6 +110,13 @@
       displayElement = this;
 
       // --- --- --- --- --- --- --- --- --- ---
+
+      // Override icon color
+      if(settings.iconColor) {
+        var style = $('<style>.cardjs .icon .svg { fill: ' + settings.iconColor + ' !important; }</style>')
+        $('html > head').append(style);
+      }
+
 
       // Initialise
       initCardNumberInput();
