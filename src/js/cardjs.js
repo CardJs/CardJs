@@ -602,7 +602,10 @@
         // Insert number digit
         if(isNumber && rawText.length < mask.length) {
           numbersOnly = (numbersOnly.slice(0, normalisedStartCaretPosition) + digit + numbersOnly.slice(normalisedStartCaretPosition));
-          newCaretPosition = denormaliseCaretPosition(mask, normalisedStartCaretPosition + 2) - 1;
+          newCaretPosition = Math.max(
+            denormaliseCaretPosition(mask, normalisedStartCaretPosition + 1),
+            denormaliseCaretPosition(mask, normalisedStartCaretPosition + 2) - 1
+          );
         }
 
         // Delete
