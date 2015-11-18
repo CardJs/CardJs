@@ -9,22 +9,74 @@
   <link href="../dist/cardjs.min.css" rel="stylesheet" type="text/css" />
   <script src="../dist/cardjs.min.js"></script>
 
+  <style>
+    .panel {
+      background-color: #F5F5F7;
+      border: 1px solid #ddd;
+      padding: 20px;
+      display: block;
+      width: 270px;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    }
+    .btn {
+      background: rgb(68,175,231); /* Old browsers */
+      background: -moz-linear-gradient(top, rgba(68,175,231,1) 0%, rgba(49,152,223,1) 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top, rgba(68,175,231,1) 0%,rgba(49,152,223,1) 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom, rgba(68,175,231,1) 0%,rgba(49,152,223,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#44afe7', endColorstr='#3198df',GradientType=0 );
+      color: #fff;
+      display: block;
+      width: 100%;
+
+      border: 1px solid rgba(46, 86, 153, 0.0980392);
+      border-bottom-color: rgba(46, 86, 153, 0.4);
+      border-top: 0;
+
+      border-radius: 4px;
+      font-size: 17px;
+
+      text-shadow: rgba(46, 86, 153, 0.298039) 0px -1px 0px;
+
+      line-height: 34px;
+      -webkit-font-smoothing: antialiased;
+      font-weight: bold;
+
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      cursor: pointer;
+    }
+
+
+    .shadow {
+      -webkit-box-shadow:0 1px 0 rgba(255,255,255,0.7),inset 0 1px 0 rgba(255,255,255,0.7);
+      -moz-box-shadow:0 1px 0 rgba(255,255,255,0.7),inset 0 1px 0 rgba(255,255,255,0.7);
+      -ms-box-shadow:0 1px 0 rgba(255,255,255,0.7),inset 0 1px 0 rgba(255,255,255,0.7);
+      -o-box-shadow: 0 1px 0 rgba(255,255,255,0.7),inset 0 1px 0 rgba(255,255,255,0.7);
+      box-shadow:0 1px 0 rgba(255,255,255,0.7),inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+  </style>
+
 </head>
 <body>
 
-  <form id="subscription-form">
+  <div class="panel">
+    <form id="subscription-form">
 
-    <!-- CardJs -->
-    <div class="cardjs">
-      <input class="card-number" data-stripe="number">
-      <input class="expiry-month" data-stripe="exp-month">
-      <input class="expiry-year" data-stripe="exp-year">
-      <input class="cvc" data-stripe="cvc">
-    </div>
+      <!-- CardJs -->
+      <div class="cardjs">
+        <input class="card-number shadow" data-stripe="number">
+        <input class="expiry-month" data-stripe="exp-month">
+        <input class="expiry-year" data-stripe="exp-year">
+        <input class="cvc" data-stripe="cvc">
+      </div>
 
-    <button>Pay Now!</button>
+      <button class="btn">Pay $20</button>
 
-  </form>
+    </form>
+  </div>
 
 </body>
 
