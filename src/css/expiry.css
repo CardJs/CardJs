@@ -2,16 +2,17 @@
   width: 50%;
   float: left;
 }
-
-
 .cardjs .expiry-wrapper {
   box-sizing: border-box;
-}
-
-
-.cardjs .expiry-wrapper {
   margin-right: 5px;
 }
+.cardjs .expiry-wrapper .expiry {
+  display: block;
+  width: 100%;
+}
+
+
+
 
 
 .cardjs .expiry-wrapper .expiry-month {
@@ -26,10 +27,6 @@
   border-left: 0;
 }
 
-
-.cardjs .expiry-wrapper {
-  display: inline-block;
-}
 
 .cardjs .expiry-wrapper .expiry-month,
 .cardjs .expiry-wrapper .expiry-year {
