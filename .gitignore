@@ -1,8 +1,6 @@
 .idea
 .DS_Store
 *~
-vendor
-composer.lock
 
 /bower_components
 /node_modules
