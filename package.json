@@ -4,7 +4,8 @@
     "Colin Stannard <colin@cbsindustries.com>"
   ],
   "description": "Credit Card input form with validation",
-  "main": "dist/cardjs.min.js",
+  "version": "1.0.2",
+  "main": "card-js.min.js",
   "moduleType": [
     "globals"
   ],
@@ -27,6 +28,7 @@
     "test",
     "tests"
   ],
+  "dependences": {},
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-contrib-concat": "^0.5.1",

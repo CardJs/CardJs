@@ -1,12 +1,10 @@
-/*
- * Awesome tutorial - http://blog.elenakolevska.com/using-grunt-with-laravel-and-bootstrap/
- */
 module.exports = function(grunt) {
-
-  //Initializing the configuration object
   grunt.initConfig({
 
-    // Task configuration
+
+    //
+    // CSS Minify
+    //
     cssmin: {
       options: {
         shorthandCompacting: false,
@@ -14,22 +12,30 @@ module.exports = function(grunt) {
       },
       "css": {
         files: {
-          "dist/cardjs.min.css": ["./src/css/**/*.css"]
+          "card-js.min.css": ["./src/css/**/*.css"]
         }
       }
     },
 
+
+    //
+    // JavaScript Minify
+    //
     uglify: {
       options: {
         mangle: false
       },
       js: {
         files: {
-          "dist/cardjs.min.js": [ "src/js/**/*.js" ]
+          "card-js.min.js": [ "src/js/**/*.js" ]
         }
       }
     },
 
+
+    //
+    // Watch Configuration
+    //
     watch: {
       "css": {
         files: [
@@ -53,14 +59,20 @@ module.exports = function(grunt) {
 
   });
 
-  // // Plugin loading
+
+  //
+  // Plugin loading
+  //
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
 
+
+  //
   // Task definition
+  //
   grunt.registerTask('default', ['watch']);
   grunt.registerTask('build', ['cssmin:css', 'uglify:js']);
 
