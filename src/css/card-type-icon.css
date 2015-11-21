@@ -5,7 +5,7 @@
   display: block;
   right: 8px;
   top: 7px;
-  background: url("../img/cards.png") no-repeat 0px 23px;
+  background: url("cards.png") no-repeat 0px 23px;
   pointer-events: none;
   opacity: 0;
 
