@@ -1,12 +1,12 @@
-.cardjs .card-number-wrapper,
-.cardjs .name-wrapper {
+.card-js .card-number-wrapper,
+.card-js .name-wrapper {
   margin-bottom: 15px;
 }
 
-.cardjs .card-number-wrapper,
-.cardjs .name-wrapper,
-.cardjs .expiry-wrapper,
-.cardjs .cvc-wrapper {
+.card-js .card-number-wrapper,
+.card-js .name-wrapper,
+.card-js .expiry-wrapper,
+.card-js .cvc-wrapper {
   -webkit-box-shadow:0 1px 0 rgba(255,255,255,0.7),inset 0 1px 0 rgba(255,255,255,0.7);
   -moz-box-shadow:0 1px 0 rgba(255,255,255,0.7),inset 0 1px 0 rgba(255,255,255,0.7);
   -ms-box-shadow:0 1px 0 rgba(255,255,255,0.7),inset 0 1px 0 rgba(255,255,255,0.7);
@@ -17,16 +17,16 @@
 }
 
 
-.cardjs .card-number-wrapper,
-.cardjs .name-wrapper,
-.cardjs .cvc-container,
-.cardjs .expiry-container {
+.card-js .card-number-wrapper,
+.card-js .name-wrapper,
+.card-js .cvc-container,
+.card-js .expiry-container {
   display: inline-block;
 }
 
 
 
-.cardjs::after {
+.card-js::after {
   content: ' ';
   display: table;
   clear: both;
@@ -37,8 +37,8 @@
 
 
 
-.cardjs input,
-.cardjs select {
+.card-js input,
+.card-js select {
   color: #676767;
   font-size: 15px;
   font-weight: 300;
@@ -62,30 +62,30 @@
 }
 
 
-.cardjs select {
+.card-js select {
   -moz-appearance: none;
   text-indent: 0.01px;
   text-overflow: '';
 }
 
 
-.cardjs input[disabled],
-.cardjs select[disabled] {
+.card-js input[disabled],
+.card-js select[disabled] {
   background-color: #eee;
   color: #555;
 }
 
 
 
-.cardjs select option[hidden] {
+.card-js select option[hidden] {
   color: #ABA9A9;
 }
 
 
 
 
-.cardjs input:focus,
-.cardjs select:focus {
+.card-js input:focus,
+.card-js select:focus {
   background-color: #fff;
   outline:0;
   border-color: #66afe9;
@@ -94,14 +94,14 @@
 }
 
 
-.cardjs input[readonly="readonly"]:not([disabled]),
-.cardjs input[readonly]:not([disabled]) {
+.card-js input[readonly="readonly"]:not([disabled]),
+.card-js input[readonly]:not([disabled]) {
    background-color: #fff;
    cursor: pointer;
  }
 
-.cardjs .has-error input,
-.cardjs .has-error input:focus {
+.card-js .has-error input,
+.card-js .has-error input:focus {
   border-color: #F64B2F;
   box-shadow: none;
 }
@@ -114,15 +114,15 @@
 
 
 
-.cardjs .card-number-wrapper,
-.cardjs .name-wrapper{
+.card-js .card-number-wrapper,
+.card-js .name-wrapper{
   width: 100%;
 }
 
 
-.cardjs input.card-number,
-.cardjs input.name,
-.cardjs input.cvc {
+.card-js input.card-number,
+.card-js input.name,
+.card-js input.cvc {
   padding-left: 38px;
   width: 100%;
 }

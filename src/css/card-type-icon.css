@@ -1,4 +1,4 @@
-.cardjs .card-number-wrapper .card-type-icon {
+.card-js .card-number-wrapper .card-type-icon {
   height:23px;
   width:32px;
   position: absolute;
@@ -15,24 +15,24 @@
   -o-transition: opacity .15s linear;
   transition: opacity .15s linear;
 }
-.cardjs .card-number-wrapper .show {
+.card-js .card-number-wrapper .show {
   opacity: 1;
 }
-.cardjs .card-number-wrapper .card-type-icon.visa {
+.card-js .card-number-wrapper .card-type-icon.visa {
   background-position:0px 0px;
 }
-.cardjs .card-number-wrapper .card-type-icon.master-card {
+.card-js .card-number-wrapper .card-type-icon.master-card {
   background-position:-32px 0px;
 }
-.cardjs .card-number-wrapper .card-type-icon.american-express {
+.card-js .card-number-wrapper .card-type-icon.american-express {
   background-position:-64px 0px;
 }
-.cardjs .card-number-wrapper .card-type-icon.discover {
+.card-js .card-number-wrapper .card-type-icon.discover {
   background-position:-96px 0px;
 }
-.cardjs .card-number-wrapper .card-type-icon.diners {
+.card-js .card-number-wrapper .card-type-icon.diners {
   background-position:-128px 0px;
 }
-.cardjs .card-number-wrapper .card-type-icon.jcb {
+.card-js .card-number-wrapper .card-type-icon.jcb {
   background-position:-160px 0px;
 }

@@ -1,12 +1,12 @@
-.cardjs .expiry-container {
+.card-js .expiry-container {
   width: 50%;
   float: left;
 }
-.cardjs .expiry-wrapper {
+.card-js .expiry-wrapper {
   box-sizing: border-box;
   margin-right: 5px;
 }
-.cardjs .expiry-wrapper .expiry {
+.card-js .expiry-wrapper .expiry {
   display: block;
   width: 100%;
 }
@@ -15,27 +15,27 @@
 
 
 
-.cardjs .expiry-wrapper .expiry-month {
+.card-js .expiry-wrapper .expiry-month {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   padding-left: 30px;
 }
 
-.cardjs .expiry-wrapper .expiry-year {
+.card-js .expiry-wrapper .expiry-year {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-left: 0;
 }
 
 
-.cardjs .expiry-wrapper .expiry-month,
-.cardjs .expiry-wrapper .expiry-year {
+.card-js .expiry-wrapper .expiry-month,
+.card-js .expiry-wrapper .expiry-year {
   display: inline-block;
 }
 
 
 
-.cardjs .expiry-wrapper .expiry {
+.card-js .expiry-wrapper .expiry {
   width: 100%;
   padding-left: 38px;
 }

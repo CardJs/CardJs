@@ -1,13 +1,13 @@
-.cardjs .cvc-container {
+.card-js .cvc-container {
   width: 50%;
   float: right;
 }
 
-.cardjs .cvc-wrapper {
+.card-js .cvc-wrapper {
   box-sizing: border-box;
   margin-left: 5px;
 }
-.cardjs .cvc-wrapper .cvc {
+.card-js .cvc-wrapper .cvc {
   display: block;
   width: 100%;
 }

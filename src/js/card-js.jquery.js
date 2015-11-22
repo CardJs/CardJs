@@ -31,7 +31,7 @@
 // Initialise for all elements with cardjs class.
 //
 $(function() {
-  $(".cardjs").each(function(i, obj) {
+  $(".card-js").each(function(i, obj) {
     $(obj).CardJs();
   });
 });

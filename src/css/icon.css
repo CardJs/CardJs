@@ -1,4 +1,4 @@
-.cardjs .icon {
+.card-js .icon {
   position: absolute;
   display: block;
   width:24px;
@@ -7,17 +7,17 @@
   top: 10px;
   pointer-events: none;
 }
-.cardjs .icon.right {
+.card-js .icon.right {
   right: 8px;
   left: auto;
 }
-.cardjs .icon.popup {
+.card-js .icon.popup {
   cursor: pointer;
   pointer-events: auto;
 }
-.cardjs .icon .svg {
+.card-js .icon .svg {
   fill: #888;
 }
-.cardjs .icon.popup .svg {
+.card-js .icon.popup .svg {
   fill: #aaa !important;
 }
