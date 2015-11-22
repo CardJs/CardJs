@@ -882,7 +882,7 @@ CardJs.prototype.setupExpiryInput = function() {
   } else {
 
     expiryInput = $("<input class='expiry' />");
-
+    expiryInput.attr("type", "tel");
     if(!expiryInput.attr("placeholder")) { expiryInput.attr("placeholder", CardJs.EXPIRY_PLACEHOLDER) }
     expiryInput.attr("maxlength", CardJs.EXPIRY_MASK.length);
     expiryInput.attr("x-autocompletetype", "cc-exp");
