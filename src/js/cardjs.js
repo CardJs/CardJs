@@ -148,12 +148,6 @@
 
       // --- --- --- --- --- --- --- --- --- ---
 
-      // Override icon color
-      if(settings.iconColour) {
-        var style = $('<style>.cardjs .icon .svg { fill: ' + settings.iconColour + ' !important; }</style>')
-        $('html > head').append(style);
-      }
-
 
       // Initialise
       initCardNumberInput();
@@ -171,6 +165,11 @@
       setupNameInput();
       setupExpiryInput();
       setupCvcInput();
+
+      // Set icon colour
+      if(settings.iconColour) {
+        setIconColour(settings.iconColour);
+      }
 
       // --- --- --- --- --- --- --- --- --- ---
 
@@ -206,6 +205,10 @@
     });
   }
 
+
+  function setIconColour(colour) {
+    displayElement.find(".icon .svg").css({"fill": colour});
+  }
 
 
   function caretStartPosition(element) {
