@@ -757,7 +757,6 @@
 //
 $(function() {
   $(".cardjs").each(function(i, obj) {
-    console.log(obj);
     $(obj).CardJs();
   });
 });
