@@ -907,6 +907,6 @@ CardJs.prototype.setupCvcInput = function() {
   wrapper.append(this.cvcInput);
   wrapper.append("<div class='icon'></div>");
   wrapper.find(".icon").append(CardJs.LOCK_SVG);
-  wrapper.append("<div class='icon right popup'></div>");
-  wrapper.find(".icon.right").append(CardJs.INFORMATION_SVG);
+  //wrapper.append("<div class='icon right popup'></div>");
+  //wrapper.find(".icon.right").append(CardJs.INFORMATION_SVG);
 };
