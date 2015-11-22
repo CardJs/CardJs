@@ -756,5 +756,8 @@
 // Initialise for all elements with cardjs class.
 //
 $(function() {
-  $(".cardjs").CardJs();
+  $(".cardjs").each(function(i, obj) {
+    console.log(obj);
+    $(obj).CardJs();
+  });
 });
