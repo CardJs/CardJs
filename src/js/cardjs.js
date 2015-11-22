@@ -117,7 +117,6 @@
   var expiryYearInput;
   var cvcInput;
 
-  var style;
 
   var methods = {
     init : function(options) {
