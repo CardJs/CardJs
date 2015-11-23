@@ -816,7 +816,7 @@ CardJs.prototype.initCvcInput = function() {
 
 
 CardJs.prototype.setupCardNumberInput = function() {
-  this.cardNumberInput.attr("data-stripe", "number");
+  if(this.stripe) { this.cardNumberInput.attr("data-stripe", "number"); }
   this.elem.append("<div class='card-number-wrapper'></div>");
   var wrapper = this.elem.find(".card-number-wrapper");
   wrapper.append(this.cardNumberInput);
@@ -943,7 +943,7 @@ CardJs.prototype.setupExpiryInput = function() {
 
 
 CardJs.prototype.setupCvcInput = function() {
-  this.cvcInput.attr("data-stripe", "cvc");
+  if(this.stripe) { this.cvcInput.attr("data-stripe", "cvc"); }
   this.elem.append("<div class='cvc-container'><div class='cvc-wrapper'></div></div>");
   var wrapper = this.elem.find(".cvc-wrapper");
   wrapper.append(this.cvcInput);
