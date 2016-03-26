@@ -53,6 +53,8 @@ function CardJs(elem) {
 CardJs.KEYS = {
   "0" : 48,
   "9" : 57,
+  "NUMPAD_0" : 96,
+  "NUMPAD_9" : 105,
   "DELETE" : 46,
   "BACKSPACE" : 8,
   "ARROW_LEFT" : 37,
@@ -202,8 +204,31 @@ CardJs.keyIsCommandFromEvent = function(e) {
  * @returns {boolean}
  */
 CardJs.keyIsNumber = function(e) {
+  return CardJs.keyIsTopNumber(e) || CardJs.keyIsKeypadNumber(e);
+};
+
+
+/**
+ * Is the event a top keyboard number key.
+ *
+ * @param e
+ * @returns {boolean}
+ */
+CardJs.keyIsTopNumber = function(e) {
   var keyCode = CardJs.keyCodeFromEvent(e);
   return keyCode >= CardJs.KEYS["0"] && keyCode <= CardJs.KEYS["9"];
+};
+
+
+/**
+ * Is the event a keypad number key.
+ *
+ * @param e
+ * @returns {boolean}
+ */
+CardJs.keyIsKeypadNumber = function(e) {
+  var keyCode = CardJs.keyCodeFromEvent(e);
+  return keyCode >= CardJs.KEYS["NUMPAD_0"] && keyCode <= CardJs.KEYS["NUMPAD_9"];
 };
 
 
@@ -513,11 +538,24 @@ CardJs.filterNumberOnlyKey = function(e) {
 };
 
 
+CardJs.digitFromKeyCode = function(keyCode) {
+
+  if(keyCode >= CardJs.KEYS["0"] && keyCode <= CardJs.KEYS["9"]) {
+    return keyCode - CardJs.KEYS["0"];
+  }
+
+  if(keyCode >= CardJs.KEYS["NUMPAD_0"] && keyCode <= CardJs.KEYS["NUMPAD_9"]) {
+    return keyCode - CardJs.KEYS["NUMPAD_0"];
+  }
+
+  return null;
+};
+
+
 CardJs.handleMaskedNumberInputKey = function(e, mask) {
   CardJs.filterNumberOnlyKey(e);
 
   var keyCode = e.which || e.keyCode;
-  var digit = String.fromCharCode(keyCode);
 
   var element = e.target;
 
@@ -540,6 +578,8 @@ CardJs.handleMaskedNumberInputKey = function(e, mask) {
     e.preventDefault();
     var rawText = $(element).val();
     var numbersOnly = CardJs.numbersOnlyString(rawText);
+
+    var digit = CardJs.digitFromKeyCode(keyCode);
 
     var rangeHighlighted = normalisedEndCaretPosition > normalisedStartCaretPosition;
 
@@ -598,7 +638,6 @@ CardJs.handleCreditCardNumberChange = function(e) {
 CardJs.handleExpiryKey = function(e) {
   CardJs.handleMaskedNumberInputKey(e, CardJs.EXPIRY_MASK);
 };
-
 
 
 
