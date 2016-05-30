@@ -73,14 +73,23 @@ CardJs.KEYS = {
 
 
 
-CardJs.CREDIT_CARD_NUMBER_MASK = "XXXX XXXX XXXX XXXX";
+CardJs.CREDIT_CARD_NUMBER_DEFAULT_MASK    = "XXXX XXXX XXXX XXXX";
+CardJs.CREDIT_CARD_NUMBER_VISA_MASK       = "XXXX XXXX XXXX XXXX";
+CardJs.CREDIT_CARD_NUMBER_MASTERCARD_MASK = "XXXX XXXX XXXX XXXX";
+CardJs.CREDIT_CARD_NUMBER_DISCOVER_MASK   = "XXXX XXXX XXXX XXXX";
+CardJs.CREDIT_CARD_NUMBER_JCB_MASK        = "XXXX XXXX XXXX XXXX";
+CardJs.CREDIT_CARD_NUMBER_AMEX_MASK       = "XXXX XXXXXX XXXXX";
+CardJs.CREDIT_CARD_NUMBER_DINERS_MASK     = "XXXX XXXX XXXX XX";
+
+CardJs.prototype.creditCardNumberMask = CardJs.CREDIT_CARD_NUMBER_DEFAULT_MASK;
 CardJs.CREDIT_CARD_NUMBER_PLACEHOLDER = "Card number";
 CardJs.NAME_PLACEHOLDER =  "Name on card";
 CardJs.EXPIRY_MASK = "XX / XX";
 CardJs.EXPIRY_PLACEHOLDER = "MM / YY";
 CardJs.EXPIRY_USE_DROPDOWNS = false;
 CardJs.EXPIRY_NUMBER_OF_YEARS = 10;
-CardJs.CVC_MASK = "XXXX";
+CardJs.CVC_MASK_3 = "XXX";
+CardJs.CVC_MASK_4 = "XXXX";
 CardJs.CVC_PLACEHOLDER =  "CVC";
 
 
@@ -405,7 +414,7 @@ CardJs.cardTypeFromNumber = function(number) {
     return "Discover";
 
   // Diners
-  re = new RegExp("^36");
+  re = new RegExp("^(30|36|38)");
   if (number.match(re) != null)
     return "Diners";
 
@@ -625,8 +634,8 @@ CardJs.handleMaskedNumberInputKey = function(e, mask) {
 };
 
 
-CardJs.handleCreditCardNumberKey = function(e) {
-  CardJs.handleMaskedNumberInputKey(e, CardJs.CREDIT_CARD_NUMBER_MASK);
+CardJs.handleCreditCardNumberKey = function(e, cardMask) {
+  CardJs.handleMaskedNumberInputKey(e, cardMask);
 };
 
 
@@ -729,33 +738,88 @@ CardJs.prototype.setCardTypeIconFromNumber = function(number) {
   switch(CardJs.cardTypeFromNumber(number)) {
     case "Visa Electron":
     case "Visa":
-      this.setCardTypeIconAsVisa();
+      this.setCardTypeAsVisa();
       break;
     case "Mastercard":
-      this.setCardTypeIconAsMasterCard();
+      this.setCardTypeAsMasterCard();
       break;
     case "AMEX":
-      this.setCardTypeIconAsAmericanExpress();
+      this.setCardTypeAsAmericanExpress();
       break;
     case "Discover":
-      this.setCardTypeIconAsDiscover();
+      this.setCardTypeAsDiscover();
       break;
     case "Diners - Carte Blanche":
     case "Diners":
-      this.setCardTypeIconAsDiners();
+      this.setCardTypeAsDiners();
       break;
     case "JCB":
-      this.setCardTypeIconAsJcb();
+      this.setCardTypeAsJcb();
       break;
     default:
-      this.clearCardTypeIcon();
+      this.clearCardType();
   }
 };
 
 
+CardJs.prototype.setCardMask = function(cardMask) {
+  this.creditCardNumberMask = cardMask;
+  this.cardNumberInput.attr("maxlength", cardMask.length);
+};
+
+CardJs.prototype.setCvc3 = function() {
+  this.cvcInput.attr("maxlength", CardJs.CVC_MASK_3.length);
+};
+
+CardJs.prototype.setCvc4 = function() {
+  this.cvcInput.attr("maxlength", CardJs.CVC_MASK_4.length);
+};
 
 
+// --- --- ---
 
+
+CardJs.prototype.clearCardType = function() {
+  this.clearCardTypeIcon();
+  this.setCardMask(CardJs.CREDIT_CARD_NUMBER_DEFAULT_MASK);
+  this.setCvc3();
+};
+
+CardJs.prototype.setCardTypeAsVisa = function() {
+  this.setCardTypeIconAsVisa();
+  this.setCardMask(CardJs.CREDIT_CARD_NUMBER_VISA_MASK);
+  this.setCvc3();
+};
+
+CardJs.prototype.setCardTypeAsMasterCard = function() {
+  this.setCardTypeIconAsMasterCard();
+  this.setCardMask(CardJs.CREDIT_CARD_NUMBER_MASTERCARD_MASK);
+  this.setCvc3();
+};
+
+CardJs.prototype.setCardTypeAsAmericanExpress = function() {
+  this.setCardTypeIconAsAmericanExpress();
+  this.setCardMask(CardJs.CREDIT_CARD_NUMBER_AMEX_MASK);
+  this.setCvc4();
+};
+
+CardJs.prototype.setCardTypeAsDiscover = function() {
+  this.setCardTypeIconAsDiscover();
+  this.setCardMask(CardJs.CREDIT_CARD_NUMBER_DISCOVER_MASK);
+  this.setCvc3();
+};
+
+CardJs.prototype.setCardTypeAsDiners = function() {
+  this.setCardTypeIconAsDiners();
+  this.setCardMask(CardJs.CREDIT_CARD_NUMBER_DINERS_MASK);
+  this.setCvc3();
+};
+
+CardJs.prototype.setCardTypeAsJcb = function() {
+  this.setCardTypeIconAsJcb();
+  this.setCardMask(CardJs.CREDIT_CARD_NUMBER_JCB_MASK);
+  this.setCvc3();
+};
 
 
 
@@ -777,14 +841,16 @@ CardJs.prototype.initCardNumberInput = function() {
   if(!this.cardNumberInput.attr("placeholder")) {
     this.cardNumberInput.attr("placeholder", CardJs.CREDIT_CARD_NUMBER_PLACEHOLDER);
   }
-  this.cardNumberInput.attr("maxlength", CardJs.CREDIT_CARD_NUMBER_MASK.length);
+  this.cardNumberInput.attr("maxlength", this.creditCardNumberMask.length);
   this.cardNumberInput.attr("x-autocompletetype", "cc-number");
   this.cardNumberInput.attr("autocompletetype", "cc-number");
   this.cardNumberInput.attr("autocorrect", "off");
   this.cardNumberInput.attr("spellcheck", "off");
   this.cardNumberInput.attr("autocapitalize", "off");
 
-  this.cardNumberInput.keydown(CardJs.handleCreditCardNumberKey);
+  this.cardNumberInput.keydown(function(e) {
+    CardJs.handleCreditCardNumberKey(e, $this.creditCardNumberMask);
+  });
   this.cardNumberInput.keyup(function(e) {
     $this.refreshCreditCardTypeIcon();
   });
@@ -839,7 +905,7 @@ CardJs.prototype.initCvcInput = function() {
   if(!this.cvcInput.attr("placeholder")) {
     this.cvcInput.attr("placeholder", CardJs.CVC_PLACEHOLDER);
   }
-  this.cvcInput.attr("maxlength", CardJs.CVC_MASK.length);
+  this.cvcInput.attr("maxlength", CardJs.CVC_MASK_3.length);
   this.cvcInput.attr("x-autocompletetype", "cc-csc");
   this.cvcInput.attr("autocompletetype", "cc-csc");
   this.cvcInput.attr("autocorrect", "off");
