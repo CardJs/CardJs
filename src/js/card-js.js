@@ -601,7 +601,7 @@ CardJs.handleMaskedNumberInputKey = function(e, mask) {
     if(caretStart != mask.length) {
 
       // Insert number digit
-      if(isNumber && rawText.length < mask.length) {
+      if(isNumber && rawText.length <= mask.length) {
         numbersOnly = (numbersOnly.slice(0, normalisedStartCaretPosition) + digit + numbersOnly.slice(normalisedStartCaretPosition));
         newCaretPosition = Math.max(
           CardJs.denormaliseCaretPosition(mask, normalisedStartCaretPosition + 1),
