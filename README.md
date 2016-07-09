@@ -21,4 +21,4 @@ The easiest way to get started with CardJs is to insert the snippet of code:
 
 # License
 
-CardJs is released under the MIT license [View license](https://github.com/CardJs/CardJs/blob/master/LICENSE.md)
+CardJs is released under the MIT license. [View license](https://github.com/CardJs/CardJs/blob/master/LICENSE.md)
