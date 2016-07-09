@@ -15,7 +15,7 @@
     "Credit Card Form",
     "Credit Card Validation"
   ],
-  "license": "GPLv3",
+  "license": "GPL v3.0",
   "dependencies": {
     "jquery": "1.11.1"
   },
