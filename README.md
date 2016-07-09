@@ -5,8 +5,10 @@
 
 You will need to include both `card-js.min.js` and `card-js.min.css` into your web page.
 
-# Usage
 
+
+
+# Usage
 
 ## Automatic Insertion
 Any elements with the class `card-js` will be automatically converted into a basic credit card input with the expiry date and CVC check.
@@ -15,3 +17,8 @@ The easiest way to get started with CardJs is to insert the snippet of code:
 ```html
 <div class="card-js"></div>
 ```
+
+
+# License
+
+CardJs is released under the MIT license [View license](https://github.com/CardJs/CardJs/blob/master/LICENSE.md)
