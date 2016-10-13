@@ -413,15 +413,15 @@ CardJs.cardTypeFromNumber = function(number) {
   if (number.match(re) != null)
     return "Discover";
 
-  // Diners
-  re = new RegExp("^(30|36|38)");
-  if (number.match(re) != null)
-    return "Diners";
-
   // Diners - Carte Blanche
   re = new RegExp("^30[0-5]");
   if (number.match(re) != null)
     return "Diners - Carte Blanche";
+
+  // Diners
+  re = new RegExp("^(30[6-9]|36|38)");
+  if (number.match(re) != null)
+    return "Diners";
 
   // JCB
   re = new RegExp("^35(2[89]|[3-8][0-9])");
