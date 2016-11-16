@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Example 05 - Card Type From Number | CardJs</title>
+
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+  <link href="../card-js.min.css" rel="stylesheet" type="text/css" />
+  <script src="../card-js.min.js"></script>
+
+  <style>
+    body {
+      font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    }
+    label {
+      display: block;
+    }
+    input.masked {
+      width: 200px;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div>
+    <input type="text" id="card-number" placeholder="Card Number">
+    <input type="text" id="card-type" placeholder="Card Type" readonly>
+  </div>
+
+
+  <div style="margin-top: 100px">
+    <label>Apply mask -> <b>XX-XX-XX-XX-XX-XX-XX-XX</b></label>
+    <input class="masked" type="text" id="mask-1" placeholder="XX-XX-XX-XX-XX-XX-XX-XX" readonly>
+  </div>
+
+  <div style="margin-top: 50px">
+    <label>Apply mask -> <b>+0 XXXX-XXXXXX @XXXXXX</b></label>
+    <input class="masked" type="text" id="mask-2" placeholder="+0 XXXX-XXXXXX @XXXXXX" readonly>
+  </div>
+
+
+
+
+  <script>
+    $(function() {
+
+      $("#card-number").change(function() {
+        $("#card-type").val(CardJs.cardTypeFromNumber($(this).val()));
+
+        var cleanCardNumber = CardJs.numbersOnlyString($(this).val());
+        $(this).val(CardJs.applyFormatMask(cleanCardNumber, 'XXXX XXXX XXXX XXXX'));
+
+        $("#mask-1").val(CardJs.applyFormatMask(cleanCardNumber, 'XX-XX-XX-XX-XX-XX-XX-XX'));
+        $("#mask-2").val(CardJs.applyFormatMask(cleanCardNumber, '+0 XXXX-XXXXXX @XXXXXX'));
+      });
+
+    });
+  </script>
+
+</body>
+</html>

@@ -2,7 +2,26 @@
 
   var methods = {
     init: function() {
-      new CardJs(this);
+      this.data("cardjs", new CardJs(this));
+      return this;
+    },
+    cardNumber: function() {
+      return this.data("cardjs").getCardNumber();
+    },
+    cardType: function() {
+      return this.data("cardjs").getCardType();
+    },
+    name: function() {
+      return this.data("cardjs").getName();
+    },
+    expiryMonth: function() {
+      return this.data("cardjs").getExpiryMonth();
+    },
+    expiryYear: function() {
+      return this.data("cardjs").getExpiryYear();
+    },
+    cvc: function() {
+      return this.data("cardjs").getCvc();
     }
   };
 
@@ -28,7 +47,7 @@
 
 
 //
-// Initialise for all elements with cardjs class.
+// Initialise for all elements with card-js class.
 //
 $(function() {
   $(".card-js").each(function(i, obj) {

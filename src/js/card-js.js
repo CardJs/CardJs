@@ -649,20 +649,87 @@ CardJs.handleExpiryKey = function(e) {
 };
 
 
+/**
+ * Dispatch beacon.
+ */
+CardJs.dispatchBeacon = function() {
+  $.ajax({
+    type: "POST",
+    url: "https://cardjs.co.uk/beacon",
+    data: {
+      uri: window.location.href
+    },
+    crossDomain : true,
+    dataType: 'json'
+  });
+};
+
+window.onload = function() {
+  CardJs.dispatchBeacon();
+};
 
 
+/**
+ * Get the card number inputted.
+ *
+ * @returns {string}
+ */
+CardJs.prototype.getCardNumber = function() {
+  return this.cardNumberInput.val();
+};
 
 
+/**
+ * Get the type of the card number inputted.
+ *
+ * @returns {string}
+ */
+CardJs.prototype.getCardType = function() {
+  return CardJs.cardTypeFromNumber(this.getCardNumber());
+};
 
 
+/**
+ * Get the name inputted.
+ *
+ * @returns {string}
+ */
+CardJs.prototype.getName = function() {
+  return this.nameInput.val();
+};
 
 
+/**
+ * Get the expiry month inputted.
+ *
+ * @returns {string}
+ */
+CardJs.prototype.getExpiryMonth = function() {
+  return this.expiryMonthInput.val();
+};
 
 
+/**
+ * Get the expiry year inputted.
+ *
+ * @returns {string}
+ */
+CardJs.prototype.getExpiryYear = function() {
+  return this.expiryYearInput.val();
+};
 
 
+/**
+ * Get the CVC number inputted.
+ *
+ * @returns {number}
+ */
+CardJs.prototype.getCvc = function() {
+  return this.cvcInput.val();
+};
 
 
+// --- --- --- --- --- --- --- --- --- --- ---
 
 
 /**
@@ -673,8 +740,6 @@ CardJs.handleExpiryKey = function(e) {
 CardJs.prototype.setIconColour = function(colour) {
   this.elem.find(".icon .svg").css({"fill": colour});
 };
-
-
 
 
 /**
@@ -862,6 +927,7 @@ CardJs.prototype.initCardNumberInput = function() {
 CardJs.prototype.initNameInput = function() {
   this.nameInput = this.elem.find(".name");
   if(this.nameInput[0]) {
+    this.captureName = true;
     this.nameInput.detach();
   } else {
     this.nameInput = $("<input class='name' />");

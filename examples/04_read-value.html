@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Example 04 - Read Value | CardJs</title>
+
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+  <link href="../card-js.min.css" rel="stylesheet" type="text/css" />
+  <script src="../card-js.min.js"></script>
+
+  <style>
+    body {
+      font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    }
+    .panel {
+      background-color: #F5F5F7;
+      border: 1px solid #ddd;
+      padding: 20px;
+      display: block;
+      width: 270px;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    }
+    .btn-wrapper {
+      width: 310px;
+      text-align: center;
+    }
+    button {
+      background: rgb(68,175,231); /* Old browsers */
+      background: -moz-linear-gradient(top, rgba(68,175,231,1) 0%, rgba(49,152,223,1) 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top, rgba(68,175,231,1) 0%,rgba(49,152,223,1) 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom, rgba(68,175,231,1) 0%,rgba(49,152,223,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#44afe7', endColorstr='#3198df',GradientType=0 );
+      color: #fff;
+      padding: 2px 10px;
+      border: 1px solid rgba(46, 86, 153, 0.0980392);
+      border-bottom-color: rgba(46, 86, 153, 0.4);
+      border-top: 0;
+      border-radius: 4px;
+      font-size: 14px;
+      text-shadow: rgba(46, 86, 153, 0.298039) 0px -1px 0px;
+      line-height: 34px;
+      -webkit-font-smoothing: antialiased;
+      margin-top: 20px;
+    }
+    button:hover {
+      cursor: pointer;
+    }
+  </style>
+
+</head>
+<body>
+
+  <table>
+    <tr>
+      <td>
+
+        <div class="panel">
+          <div id="my-card-1" class="card-js" data-capture-name="true"></div>
+        </div>
+
+        <div style="margin-top: 40px">
+          <table style="width: 310px">
+            <tr>
+              <td><label for="card-number-1">Card Number:</label></td>
+              <td><input type="text" id="card-number-1" readonly /></td>
+            </tr>
+            <tr>
+              <td><label for="card-type-1">Card Type:</label></td>
+              <td><input type="text" id="card-type-1" readonly /></td>
+            </tr>
+            <tr>
+              <td><label for="name-1">Name on Card:</label></td>
+              <td><input type="text" id="name-1" readonly /></td>
+            </tr>
+            <tr>
+              <td><label for="expiry-month-1">Expiry Month:</label></td>
+              <td><input type="text" id="expiry-month-1" readonly /></td>
+            </tr>
+            <tr>
+              <td><label for="expiry-year-1">Expiry Year:</label></td>
+              <td><input type="text" id="expiry-year-1" readonly /></td>
+            </tr>
+            <tr>
+              <td><label for="cvc-1">CVC:</label></td>
+              <td><input type="text" id="cvc-1" readonly /></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="btn-wrapper">
+          <button id="read-btn-1">Read Values</button>
+        </div>
+
+      </td>
+      <td>
+
+        <div class="panel">
+          <div id="my-card-2" class="card-js" data-capture-name="true"></div>
+        </div>
+
+        <div style="margin-top: 40px">
+          <table style="width: 310px">
+            <tr>
+              <td><label for="card-number-2">Card Number:</label></td>
+              <td><input type="text" id="card-number-2" readonly /></td>
+            </tr>
+            <tr>
+              <td><label for="card-type-2">Card Type:</label></td>
+              <td><input type="text" id="card-type-2" readonly /></td>
+            </tr>
+            <tr>
+              <td><label for="name-2">Name on Card:</label></td>
+              <td><input type="text" id="name-2" readonly /></td>
+            </tr>
+            <tr>
+              <td><label for="expiry-month-2">Expiry Month:</label></td>
+              <td><input type="text" id="expiry-month-2" readonly /></td>
+            </tr>
+            <tr>
+              <td><label for="expiry-year-2">Expiry Year:</label></td>
+              <td><input type="text" id="expiry-year-2" readonly /></td>
+            </tr>
+            <tr>
+              <td><label for="cvc-2">CVC:</label></td>
+              <td><input type="text" id="cvc-2" readonly /></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="btn-wrapper">
+          <button id="read-btn-2">Read Values</button>
+        </div>
+
+      </td>
+    </tr>
+  </table>
+
+
+  <script>
+    $(function() {
+      $("#read-btn-1").click(function() {
+
+        var myCard = $('#my-card-1');
+
+        var cardNumber = myCard.CardJs('cardNumber');
+        var cardType = myCard.CardJs('cardType');
+        var name = myCard.CardJs('name');
+        var expiryMonth = myCard.CardJs('expiryMonth');
+        var expiryYear = myCard.CardJs('expiryYear');
+        var cvc = myCard.CardJs('cvc');
+
+        $("#card-number-1").val(cardNumber);
+        $("#card-type-1").val(cardType);
+        $("#name-1").val(name);
+        $("#expiry-month-1").val(expiryMonth);
+        $("#expiry-year-1").val(expiryYear);
+        $("#cvc-1").val(cvc);
+      });
+
+
+      $("#read-btn-2").click(function() {
+
+        var myCard = $('#my-card-2');
+
+        var cardNumber = myCard.CardJs('cardNumber');
+        var cardType = myCard.CardJs('cardType');
+        var name = myCard.CardJs('name');
+        var expiryMonth = myCard.CardJs('expiryMonth');
+        var expiryYear = myCard.CardJs('expiryYear');
+        var cvc = myCard.CardJs('cvc');
+
+        $("#card-number-2").val(cardNumber);
+        $("#card-type-2").val(cardType);
+        $("#name-2").val(name);
+        $("#expiry-month-2").val(expiryMonth);
+        $("#expiry-year-2").val(expiryYear);
+        $("#cvc-2").val(cvc);
+      });
+    });
+  </script>
+
+</body>
+</html>

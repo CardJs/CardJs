@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CardJs example 01</title>
+
+  <title>Example 02 - Customise Fields | CardJs</title>
 
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
   <link href="../card-js.min.css" rel="stylesheet" type="text/css" />
   <script src="../card-js.min.js"></script>
 
+  <style type="text/css">
+    .my-custom-class {
+      border: 1px dashed #f00 !important;
+    }
+  </style>
+
 </head>
 <body>
 
   <div class="card-js">
-    <input class="card-number">
+    <input class="card-number my-custom-class">
+    <input class="name" id="the-card-name-element">
     <input class="expiry-month">
     <input class="expiry-year">
     <input class="cvc">
