@@ -650,23 +650,23 @@ CardJs.handleExpiryKey = function(e) {
 
 
 /**
- * Dispatch beacon.
+ * Dispatch beacon ~ for future feature.
  */
-CardJs.dispatchBeacon = function() {
-  $.ajax({
-    type: "POST",
-    url: "https://cardjs.co.uk/beacon",
-    data: {
-      uri: window.location.href
-    },
-    crossDomain : true,
-    dataType: 'json'
-  });
-};
+//CardJs.dispatchBeacon = function() {
+//  $.ajax({
+//    type: "POST",
+//    url: "https://cardjs.co.uk/beacon",
+//    data: {
+//      uri: window.location.href
+//    },
+//    crossDomain : true,
+//    dataType: 'json'
+//  });
+//};
 
-window.onload = function() {
-  CardJs.dispatchBeacon();
-};
+//window.onload = function() {
+  //CardJs.dispatchBeacon();
+//};
 
 
 /**
@@ -1143,11 +1143,31 @@ CardJs.isValidMonth = function(expiryMonth) {
 };
 
 
+CardJs.isExpiryValid = function(month, year) {
+  var today = new Date();
+  var currentMonth = (today.getMonth() + 1);
+  var currentYear = "" + today.getFullYear();
+
+  if(("" + year).length == 2) {
+    year = currentYear.substring(0, 2) + "" + year;
+  }
+
+  currentMonth = parseInt(currentMonth);
+  currentYear = parseInt(currentYear);
+  month = parseInt(month);
+  year = parseInt(year);
+
+  return CardJs.isValidMonth(month)
+    && ((year > currentYear) || (year == currentYear && month >= currentMonth));
+};
+
+
 /**
  * Refresh whether the expiry month is valid (update display to reflect)
  */
 CardJs.prototype.refreshExpiryMonthValidation = function() {
-  CardJs.isValidMonth(this.expiryMonth()) ? this.setExpiryMonthAsValid() : this.setExpiryMonthAsInvalid();
+   CardJs.isExpiryValid(this.getExpiryMonth(), this.getExpiryYear())
+    ? this.setExpiryMonthAsValid() : this.setExpiryMonthAsInvalid();
 };
 
 

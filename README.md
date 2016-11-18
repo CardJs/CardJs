@@ -147,6 +147,30 @@ var formattedCardNumber = CardJs.applyFormatMask(cardNumberWithoutSpaces, format
 
 
 
+# Card Expiry Validation
+The expiry month can be in the range: 1 = January to 12 = December
+
+```javascript
+var month = 3;
+var year = 2019;
+var valid = CardJs.isExpiryValid = function(month, year);
+```
+
+The expiry month and year can be either and integer or a string.
+```javascript
+var month = "3";
+var year = "2019";
+var valid = CardJs.isExpiryValid = function(month, year);
+```
+
+The expiry year can be either 4 digits or 2 digits long.
+```javascript
+var month = "3";
+var year = "19";
+var valid = CardJs.isExpiryValid = function(month, year);
+```
+
+
 
 # License
 
