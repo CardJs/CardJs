@@ -384,7 +384,6 @@ CardJs.applyFormatMask = function(string, mask) {
 };
 
 
-
 /**
  * Establish the type of a card from the number.
  *
@@ -437,7 +436,163 @@ CardJs.cardTypeFromNumber = function(number) {
 };
 
 
+/**
+ * Establish the bank from the given UK sort code.
+ *
+ * @param sortCode
+ * @returns {string}
+ */
+CardJs.bankFromUkSortCode = function(sortCode) {
 
+  var re = null;
+
+  // Drummonds Bank
+  re = new RegExp("^160038");
+  if (sortCode.match(re) != null)
+    return "Drummonds Bank";
+
+  // Cater Allen
+  re = new RegExp("^165710");
+  if (sortCode.match(re) != null)
+    return "Cater Allen";
+
+  // Metro Bank
+  re = new RegExp("^230580");
+  if (sortCode.match(re) != null)
+    return "Metro Bank";
+
+  // Arbuthnot Latham
+  re = new RegExp("^300066");
+  if (sortCode.match(re) != null)
+    return "Arbuthnot Latham";
+
+  // M&S Bank
+  re = new RegExp("^40125[0-5]");
+  if (sortCode.match(re) != null)
+    return "M&S Bank";
+
+  // Turkish Bank UK
+  re = new RegExp("^405198");
+  if (sortCode.match(re) != null)
+    return "Turkish Bank UK";
+
+  // CashFlows
+  re = new RegExp("^406080");
+  if (sortCode.match(re) != null)
+    return "CashFlows";
+
+  // The Coventry Building Society
+  re = new RegExp("^406301");
+  if (sortCode.match(re) != null)
+    return "The Coventry Building Society";
+
+  // Bank of Cyprus UK
+  re = new RegExp("^406377");
+  if (sortCode.match(re) != null)
+    return "Bank of Cyprus UK";
+
+  // Virgin Money PLC
+  re = new RegExp("^406425");
+  if (sortCode.match(re) != null)
+    return "Virgin Money PLC";
+
+  // Norwich & Peterborough Building Society
+  re = new RegExp("^406500");
+  if (sortCode.match(re) != null)
+    return "Norwich & Peterborough Building Society";
+
+  // Atom Bank
+  re = new RegExp("^608312");
+  if (sortCode.match(re) != null)
+    return "Atom Bank";
+
+  // Alliance & Leicester
+  re = new RegExp("^09013[1-6]");
+  if (sortCode.match(re) != null)
+    return "Alliance & Leicester";
+
+  // Sainsbury's Bank
+  re = new RegExp("^126");
+  if (sortCode.match(re) != null)
+    return "Sainsbury's Bank";
+
+  // National Westminster Bank
+  re = new RegExp("^01|5|6[0-6]");
+  if (sortCode.match(re) != null)
+    return "National Westminster Bank";
+
+  // Clydesdale Bank
+  re = new RegExp("^05");
+  if (sortCode.match(re) != null)
+    return "Clydesdale Bank";
+
+  // Nationwide Building Society
+  re = new RegExp("^07[0-4]");
+  if (sortCode.match(re) != null)
+    return "Nationwide Building Society";
+
+  // The Co-operative Bank
+  re = new RegExp("^08(6[0-1]|9[0-9])");
+  if (sortCode.match(re) != null)
+    return "The Co-operative Bank";
+
+  // Santander UK
+  re = new RegExp("^(09[0-1]|72)");
+  if (sortCode.match(re) != null)
+    return "Santander UK";
+
+  // Bank of England
+  re = new RegExp("^10[0-7]");
+  if (sortCode.match(re) != null)
+    return "Bank of England";
+
+  // Halifax
+  re = new RegExp("^11");
+  if (sortCode.match(re) != null)
+    return "Halifax";
+
+  // Bank of Scotland
+  re = new RegExp("^12[0-6]");
+  if (sortCode.match(re) != null)
+    return "Bank of England";
+
+  // Barclays Bank
+  re = new RegExp("^(1[3-4]|2)");
+  if (sortCode.match(re) != null)
+    return "Barclays Bank";
+
+  // Child & Co private bank
+  re = new RegExp("^1580");
+  if (sortCode.match(re) != null)
+    return "Child & Co private bank";
+
+  // C. Hoare & Co.
+  re = new RegExp("^159[8-9]");
+  if (sortCode.match(re) != null)
+    return "C. Hoare & Co.";
+
+  // The Royal Bank of Scotland
+  re = new RegExp("^1[5-7]");
+  if (sortCode.match(re) != null)
+    return "The Royal Bank of Scotland";
+
+  // Coutts & Co.
+  re = new RegExp("^18");
+  if (sortCode.match(re) != null)
+    return "Coutts & Co.";
+
+  // Lloyds Bank and TSB
+  re = new RegExp("^(3|77([0-3]|4[0-4]|4[6-9]|[5-9]))");
+  if (sortCode.match(re) != null)
+    return "Lloyds Bank and TSB";
+
+  // HSBC Bank
+  re = new RegExp("^4");
+  if (sortCode.match(re) != null)
+    return "HSBC Bank";
+
+  return "";
+};
 
 
 /**
