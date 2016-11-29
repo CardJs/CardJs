@@ -1,3 +1,10 @@
+# CardJs
+
+![Example Blue](img/example-blue.png)
+
+[View working example](https://cardjs.co.uk/)
+
+
 # Installation
 
 - Bower: `bower install card-js --save`
