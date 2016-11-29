@@ -393,26 +393,6 @@ CardJs.applyFormatMask = function(string, mask) {
  */
 CardJs.cardTypeFromNumber = function(number) {
 
-  // Visa
-  var re = new RegExp("^4");
-  if (number.match(re) != null)
-    return "Visa";
-
-  // Mastercard
-  re = new RegExp("^5[1-5]");
-  if (number.match(re) != null)
-    return "Mastercard";
-
-  // AMEX
-  re = new RegExp("^3[47]");
-  if (number.match(re) != null)
-    return "AMEX";
-
-  // Discover
-  re = new RegExp("^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)");
-  if (number.match(re) != null)
-    return "Discover";
-
   // Diners - Carte Blanche
   re = new RegExp("^30[0-5]");
   if (number.match(re) != null)
@@ -428,10 +408,30 @@ CardJs.cardTypeFromNumber = function(number) {
   if (number.match(re) != null)
     return "JCB";
 
+  // AMEX
+  re = new RegExp("^3[47]");
+  if (number.match(re) != null)
+    return "AMEX";
+
   // Visa Electron
   re = new RegExp("^(4026|417500|4508|4844|491(3|7))");
   if (number.match(re) != null)
     return "Visa Electron";
+
+  // Visa
+  var re = new RegExp("^4");
+  if (number.match(re) != null)
+    return "Visa";
+
+  // Mastercard
+  re = new RegExp("^5[1-5]");
+  if (number.match(re) != null)
+    return "Mastercard";
+
+  // Discover
+  re = new RegExp("^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)");
+  if (number.match(re) != null)
+    return "Discover";
 
   return "";
 };
