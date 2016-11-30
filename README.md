@@ -19,7 +19,7 @@ You will need to include both `card-js.min.js` and `card-js.min.css` into your w
 
 # Usage
 
-For working examples of using CardJs, see the examples folder of this project.
+For working examples of using CardJs, see the [examples](examples) folder of this project.
 
 ## Automatic Insertion
 Any elements with the class `card-js` will be automatically converted into a basic credit card input with the expiry date and CVC check.
