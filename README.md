@@ -1,8 +1,10 @@
 # CardJs
 
-![Example Blue](img/example-blue.png)
+A simple, clean, credit card form for your website. Includes number formatting, validation and automatic card type detection.
 
-[View working example](https://cardjs.co.uk/)
+![Example](img/example.png)
+
+[View working example >](https://cardjs.co.uk/)
 
 
 # Installation
