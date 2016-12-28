@@ -12,7 +12,7 @@ A simple, clean, credit card form for your website. Includes number formatting, 
 - Bower: `bower install card-js --save`
 - Zip: [Download](https://github.com/CardJs/CardJs/archive/master.zip)
 
-You will need to include both `card-js.min.js` and `card-js.min.css` into your web page.
+You will need to include both `card-js.min.js`, `card-js.min.css`, and `jQuery ^1.11.3` into your web page.
 
 
 
