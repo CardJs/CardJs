@@ -944,7 +944,7 @@ CardJs.prototype.initExpiryMonthInput = function() {
   if(this.expiryMonthInput[0]) {
     this.expiryMonthInput.detach();
   } else {
-    this.expiryMonthInput = $("<input class='expiry-month' />");
+    this.expiryMonthInput = $("<input class='expiry-month' name='expiry-month' />");
   }
 };
 
@@ -954,7 +954,7 @@ CardJs.prototype.initExpiryYearInput = function() {
   if(this.expiryYearInput[0]) {
     this.expiryYearInput.detach();
   } else {
-    this.expiryYearInput = $("<input class='expiry-year' />");
+    this.expiryYearInput = $("<input class='expiry-year' name='expiry-year' />");
   }
 };
 
@@ -1058,8 +1058,8 @@ CardJs.prototype.setupExpiryInput = function() {
   } else {
 
     expiryInput = $("<div></div>");
-    this.expiryMonthInput = $("<input type='hidden' name='expiry-month' />");
-    this.expiryYearInput = $("<input type='hidden' name='expiry-year' />");
+    this.expiryMonthInput.attr("type", "hidden");
+    this.expiryYearInput.attr("type", "hidden");
 
     if(this.stripe) {
       this.expiryMonthInput.attr("data-stripe", "exp-month");
