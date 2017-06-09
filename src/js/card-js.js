@@ -919,7 +919,7 @@ CardJs.prototype.initCardNumberInput = function() {
   this.cardNumberInput.keyup(function(e) {
     $this.refreshCreditCardTypeIcon();
   });
-  this.cardNumberInput.change(CardJs.handleCreditCardNumberChange);
+  this.cardNumberInput.on('change paste', CardJs.handleCreditCardNumberChange);
 };
 
 
