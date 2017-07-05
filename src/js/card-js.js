@@ -763,6 +763,36 @@ CardJs.prototype.refreshCreditCardTypeIcon = function() {
 /**
  *
  */
+CardJs.prototype.refreshCreditCardNumberFormat = function() {
+  var numbersOnly = CardJs.numbersOnlyString($(this.cardNumberInput).val());
+  var formattedNumber = CardJs.applyFormatMask(numbersOnly, this.creditCardNumberMask);
+  $(this.cardNumberInput).val(formattedNumber);
+};
+
+
+/**
+ *
+ */
+CardJs.prototype.refreshExpiryMonthYearInput = function() {
+  var numbersOnly = CardJs.numbersOnlyString($(this.expiryMonthYearInput).val());
+  var formattedNumber = CardJs.applyFormatMask(numbersOnly, CardJs.EXPIRY_MASK);
+  $(this.expiryMonthYearInput).val(formattedNumber);
+};
+
+
+/**
+ *
+ */
+CardJs.prototype.refreshCvc = function() {
+  var numbersOnly = CardJs.numbersOnlyString($(this.cvcInput).val());
+  var formattedNumber = CardJs.applyFormatMask(numbersOnly, this.creditCardNumberMask);
+  $(this.cvcInput).val(formattedNumber);
+};
+
+
+/**
+ *
+ */
 CardJs.prototype.clearCardTypeIcon = function() {
   this.elem.find(".card-number-wrapper .card-type-icon").removeClass("show");
 };
@@ -913,13 +943,22 @@ CardJs.prototype.initCardNumberInput = function() {
   this.cardNumberInput.attr("spellcheck", "off");
   this.cardNumberInput.attr("autocapitalize", "off");
 
+  //
+  // Events
+  //
   this.cardNumberInput.keydown(function(e) {
     CardJs.handleCreditCardNumberKey(e, $this.creditCardNumberMask);
   });
   this.cardNumberInput.keyup(function(e) {
     $this.refreshCreditCardTypeIcon();
   });
-  this.cardNumberInput.change(CardJs.handleCreditCardNumberChange);
+  //this.cardNumberInput.change(CardJs.handleCreditCardNumberChange);
+  this.cardNumberInput.on('paste', function() {
+    setTimeout(function() {
+      $this.refreshCreditCardNumberFormat();
+      $this.refreshCreditCardTypeIcon();
+    }, 1);
+  });
 };
 
 
@@ -960,6 +999,9 @@ CardJs.prototype.initExpiryYearInput = function() {
 
 
 CardJs.prototype.initCvcInput = function() {
+
+  var $this = this;
+
   this.cvcInput = this.elem.find(".cvc");
   if(this.cvcInput[0]) {
     this.cvcInput.detach();
@@ -978,7 +1020,16 @@ CardJs.prototype.initCvcInput = function() {
   this.cvcInput.attr("spellcheck", "off");
   this.cvcInput.attr("autocapitalize", "off");
 
+
+  //
+  // Events
+  //
   this.cvcInput.keydown(CardJs.filterNumberOnlyKey);
+  this.cvcInput.on('paste', function() {
+    setTimeout(function() {
+      $this.refreshCvc();
+    }, 1);
+  });
 };
 
 
@@ -1079,6 +1130,10 @@ CardJs.prototype.setupExpiryInput = function() {
     this.expiryMonthYearInput.attr("autocapitalize", "off");
 
     var $this = this;
+
+    //
+    // Events
+    //
     this.expiryMonthYearInput.keydown(function(e) {
       CardJs.handleExpiryKey(e);
 
@@ -1100,6 +1155,11 @@ CardJs.prototype.setupExpiryInput = function() {
       $this.refreshExpiryMonthValidation();
     });
 
+    this.expiryMonthYearInput.on('paste', function() {
+      setTimeout(function() {
+        $this.refreshExpiryMonthYearInput();
+      }, 1);
+    });
 
     expiryInput.append(this.expiryMonthYearInput);
     expiryInput.append(this.expiryMonthInput);
