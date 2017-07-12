@@ -2,9 +2,12 @@
 
 A simple, clean, credit card form for your website. Includes number formatting, validation and automatic card type detection.
 
+[View working example >](https://cardjs.co.uk/)
+
 ![Example](img/example.png)
 
-[View working example >](https://cardjs.co.uk/)
+
+By [Zara 4 image compression](https://zara4.com) service
 
 
 # Installation
