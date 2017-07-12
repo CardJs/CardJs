@@ -1066,7 +1066,7 @@ CardJs.prototype.setupExpiryInput = function() {
 
   var expiryInput;
 
-  if(this.EXPIRY_USE_DROPDOWNS) {
+  if(CardJs.EXPIRY_USE_DROPDOWNS) {
     expiryInput = $("<div></div>");
 
     var expiryMonthNew = $(
@@ -1188,7 +1188,7 @@ CardJs.prototype.setupCvcInput = function() {
 
 
 CardJs.prototype.expiryMonth = function() {
-  if(!this.EXPIRY_USE_DROPDOWNS && this.expiryMonthYearInput != null) {
+  if(CardJs.EXPIRY_USE_DROPDOWNS && this.expiryMonthYearInput != null) {
     var val = this.expiryMonthYearInput.val();
     return val.length >= 2 ? parseInt(val.substr(0,2)) : null;
     //return (monthValue >= 1 && monthValue <= 12) ? monthValue : null;
@@ -1235,7 +1235,7 @@ CardJs.prototype.refreshExpiryMonthValidation = function() {
  * Update the display to highlight the expiry month as valid.
  */
 CardJs.prototype.setExpiryMonthAsValid = function() {
-  if(this.EXPIRY_USE_DROPDOWNS) {
+  if(CardJs.EXPIRY_USE_DROPDOWNS) {
 
   } else {
     this.expiryMonthYearInput.parent().removeClass("has-error");
@@ -1247,7 +1247,7 @@ CardJs.prototype.setExpiryMonthAsValid = function() {
  * Update the display to highlight the expiry month as invalid.
  */
 CardJs.prototype.setExpiryMonthAsInvalid = function() {
-  if(this.EXPIRY_USE_DROPDOWNS) {
+  if(CardJs.EXPIRY_USE_DROPDOWNS) {
 
   } else {
     this.expiryMonthYearInput.parent().addClass("has-error");
