@@ -437,9 +437,6 @@ CardJs.cardTypeFromNumber = function(number) {
 };
 
 
-
-
-
 /**
  * Get the caret start position of the given element.
  *
@@ -547,6 +544,12 @@ CardJs.filterNumberOnlyKey = function(e) {
 };
 
 
+/**
+ *
+ *
+ * @param keyCode
+ * @returns {*}
+ */
 CardJs.digitFromKeyCode = function(keyCode) {
 
   if(keyCode >= CardJs.KEYS["0"] && keyCode <= CardJs.KEYS["9"]) {
@@ -561,6 +564,12 @@ CardJs.digitFromKeyCode = function(keyCode) {
 };
 
 
+/**
+ *
+ *
+ * @param e
+ * @param mask
+ */
 CardJs.handleMaskedNumberInputKey = function(e, mask) {
   CardJs.filterNumberOnlyKey(e);
 
@@ -583,7 +592,7 @@ CardJs.handleMaskedNumberInputKey = function(e, mask) {
   var isDelete = CardJs.keyIsDelete(e);
   var isBackspace = CardJs.keyIsBackspace(e);
 
-  if(isNumber || isDelete || isBackspace) {
+  if (isNumber || isDelete || isBackspace) {
     e.preventDefault();
     var rawText = $(element).val();
     var numbersOnly = CardJs.numbersOnlyString(rawText);
@@ -593,15 +602,15 @@ CardJs.handleMaskedNumberInputKey = function(e, mask) {
     var rangeHighlighted = normalisedEndCaretPosition > normalisedStartCaretPosition;
 
     // Remove values highlighted (if highlighted)
-    if(rangeHighlighted) {
+    if (rangeHighlighted) {
       numbersOnly = (numbersOnly.slice(0, normalisedStartCaretPosition) + numbersOnly.slice(normalisedEndCaretPosition));
     }
 
     // Forward Action
-    if(caretStart != mask.length) {
+    if (caretStart != mask.length) {
 
       // Insert number digit
-      if(isNumber && rawText.length <= mask.length) {
+      if (isNumber && rawText.length <= mask.length) {
         numbersOnly = (numbersOnly.slice(0, normalisedStartCaretPosition) + digit + numbersOnly.slice(normalisedStartCaretPosition));
         newCaretPosition = Math.max(
           CardJs.denormaliseCaretPosition(mask, normalisedStartCaretPosition + 1),
@@ -610,14 +619,14 @@ CardJs.handleMaskedNumberInputKey = function(e, mask) {
       }
 
       // Delete
-      if(isDelete) {
+      if (isDelete) {
         numbersOnly = (numbersOnly.slice(0, normalisedStartCaretPosition) + numbersOnly.slice(normalisedStartCaretPosition + 1));
       }
 
     }
 
     // Backward Action
-    if(caretStart != 0) {
+    if (caretStart != 0) {
 
       // Backspace
       if(isBackspace && !rangeHighlighted) {
@@ -634,6 +643,12 @@ CardJs.handleMaskedNumberInputKey = function(e, mask) {
 };
 
 
+/**
+ *
+ *
+ * @param e
+ * @param cardMask
+ */
 CardJs.handleCreditCardNumberKey = function(e, cardMask) {
   CardJs.handleMaskedNumberInputKey(e, cardMask);
 };
@@ -790,38 +805,7 @@ CardJs.prototype.refreshCvc = function() {
 };
 
 
-/**
- *
- */
-CardJs.prototype.clearCardTypeIcon = function() {
-  this.elem.find(".card-number-wrapper .card-type-icon").removeClass("show");
-};
-
-CardJs.prototype.setCardTypeIconAsVisa = function() {
-  this.elem.find(".card-number-wrapper .card-type-icon").attr("class", "card-type-icon show visa");
-};
-
-CardJs.prototype.setCardTypeIconAsMasterCard = function() {
-  this.elem.find(".card-number-wrapper .card-type-icon").attr("class", "card-type-icon show master-card");
-};
-
-CardJs.prototype.setCardTypeIconAsAmericanExpress = function() {
-  this.elem.find(".card-number-wrapper .card-type-icon").attr("class", "card-type-icon show american-express");
-};
-
-CardJs.prototype.setCardTypeIconAsDiscover = function() {
-  this.elem.find(".card-number-wrapper .card-type-icon").attr("class", "card-type-icon show discover");
-};
-
-CardJs.prototype.setCardTypeIconAsDiners = function() {
-  this.elem.find(".card-number-wrapper .card-type-icon").attr("class", "card-type-icon show diners");
-};
-
-CardJs.prototype.setCardTypeIconAsJcb = function() {
-  this.elem.find(".card-number-wrapper .card-type-icon").attr("class", "card-type-icon show jcb");
-};
-
-
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 
 /**
@@ -857,59 +841,158 @@ CardJs.prototype.setCardTypeIconFromNumber = function(number) {
 };
 
 
+/**
+ * Set the card number mask
+ *
+ * @param cardMask
+ */
 CardJs.prototype.setCardMask = function(cardMask) {
   this.creditCardNumberMask = cardMask;
   this.cardNumberInput.attr("maxlength", cardMask.length);
 };
 
+
+/**
+ * Set the CVC with a mask of 3 digits
+ */
 CardJs.prototype.setCvc3 = function() {
   this.cvcInput.attr("maxlength", CardJs.CVC_MASK_3.length);
 };
 
+
+/**
+ * Set the CVC with a mask of 4 digits
+ */
 CardJs.prototype.setCvc4 = function() {
   this.cvcInput.attr("maxlength", CardJs.CVC_MASK_4.length);
 };
 
 
-// --- --- ---
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 
+/**
+ * Reset the card type icon - show nothing
+ */
+CardJs.prototype.clearCardTypeIcon = function() {
+  this.elem.find(".card-number-wrapper .card-type-icon").removeClass("show");
+};
+
+
+/**
+ * Set the card type icon as - Visa
+ */
+CardJs.prototype.setCardTypeIconAsVisa = function() {
+  this.elem.find(".card-number-wrapper .card-type-icon").attr("class", "card-type-icon show visa");
+};
+
+
+/**
+ * Set the card type icon as - Master Card
+ */
+CardJs.prototype.setCardTypeIconAsMasterCard = function() {
+  this.elem.find(".card-number-wrapper .card-type-icon").attr("class", "card-type-icon show master-card");
+};
+
+
+/**
+ * Set the card type icon as - American Express (AMEX)
+ */
+CardJs.prototype.setCardTypeIconAsAmericanExpress = function() {
+  this.elem.find(".card-number-wrapper .card-type-icon").attr("class", "card-type-icon show american-express");
+};
+
+
+/**
+ * Set the card type icon as - Discover
+ */
+CardJs.prototype.setCardTypeIconAsDiscover = function() {
+  this.elem.find(".card-number-wrapper .card-type-icon").attr("class", "card-type-icon show discover");
+};
+
+
+/**
+ * Set the card type icon as - Diners
+ */
+CardJs.prototype.setCardTypeIconAsDiners = function() {
+  this.elem.find(".card-number-wrapper .card-type-icon").attr("class", "card-type-icon show diners");
+};
+
+
+/**
+ * Set the card type icon as - JCB
+ */
+CardJs.prototype.setCardTypeIconAsJcb = function() {
+  this.elem.find(".card-number-wrapper .card-type-icon").attr("class", "card-type-icon show jcb");
+};
+
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+
+/**
+ * Reset the card type
+ */
 CardJs.prototype.clearCardType = function() {
   this.clearCardTypeIcon();
   this.setCardMask(CardJs.CREDIT_CARD_NUMBER_DEFAULT_MASK);
   this.setCvc3();
 };
 
+
+/**
+ * Set the card type as - Visa
+ */
 CardJs.prototype.setCardTypeAsVisa = function() {
   this.setCardTypeIconAsVisa();
   this.setCardMask(CardJs.CREDIT_CARD_NUMBER_VISA_MASK);
   this.setCvc3();
 };
 
+
+/**
+ * Set the card type as - Master Card
+ */
 CardJs.prototype.setCardTypeAsMasterCard = function() {
   this.setCardTypeIconAsMasterCard();
   this.setCardMask(CardJs.CREDIT_CARD_NUMBER_MASTERCARD_MASK);
   this.setCvc3();
 };
 
+
+/**
+ * Set the card type as - American Express (AMEX)
+ */
 CardJs.prototype.setCardTypeAsAmericanExpress = function() {
   this.setCardTypeIconAsAmericanExpress();
   this.setCardMask(CardJs.CREDIT_CARD_NUMBER_AMEX_MASK);
   this.setCvc4();
 };
 
+
+/**
+ * Set the card type as - Discover
+ */
 CardJs.prototype.setCardTypeAsDiscover = function() {
   this.setCardTypeIconAsDiscover();
   this.setCardMask(CardJs.CREDIT_CARD_NUMBER_DISCOVER_MASK);
   this.setCvc3();
 };
 
+
+/**
+ * Set the card type as - Diners
+ */
 CardJs.prototype.setCardTypeAsDiners = function() {
   this.setCardTypeIconAsDiners();
   this.setCardMask(CardJs.CREDIT_CARD_NUMBER_DINERS_MASK);
   this.setCvc3();
 };
 
+
+/**
+ * Set the card type as - JCB
+ */
 CardJs.prototype.setCardTypeAsJcb = function() {
   this.setCardTypeIconAsJcb();
   this.setCardMask(CardJs.CREDIT_CARD_NUMBER_JCB_MASK);
@@ -917,25 +1000,28 @@ CardJs.prototype.setCardTypeAsJcb = function() {
 };
 
 
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 
-
-
-
+/**
+ * Initialise the card number input
+ */
 CardJs.prototype.initCardNumberInput = function() {
-  var $this = this;
 
-  this.cardNumberInput = this.elem.find(".card-number");
-  if(this.cardNumberInput[0]) {
-    this.cardNumberInput.detach();
-  } else {
-    this.cardNumberInput = $("<input class='card-number' />");
+  // Find or create the card number input element
+  this.cardNumberInput = CardJs.detachOrCreateElement(this.elem, ".card-number", "<input class='card-number' />");
+
+  // Ensure the card number element has a name
+  if (!CardJs.elementHasAttribute(this.cardNumberInput, "name")) {
+    this.cardNumberInput.attr("name", "card-number");
+  }
+
+  // Ensure the card number has a placeholder
+  if (!CardJs.elementHasAttribute(this.cardNumberInput, "placeholder")) {
+    this.cardNumberInput.attr("placeholder", CardJs.CREDIT_CARD_NUMBER_PLACEHOLDER);
   }
 
   this.cardNumberInput.attr("type", "tel");
-  if(!this.cardNumberInput.attr("placeholder")) {
-    this.cardNumberInput.attr("placeholder", CardJs.CREDIT_CARD_NUMBER_PLACEHOLDER);
-  }
   this.cardNumberInput.attr("maxlength", this.creditCardNumberMask.length);
   this.cardNumberInput.attr("x-autocompletetype", "cc-number");
   this.cardNumberInput.attr("autocompletetype", "cc-number");
@@ -943,13 +1029,16 @@ CardJs.prototype.initCardNumberInput = function() {
   this.cardNumberInput.attr("spellcheck", "off");
   this.cardNumberInput.attr("autocapitalize", "off");
 
+  // ---
+
   //
   // Events
   //
+  var $this = this;
   this.cardNumberInput.keydown(function(e) {
     CardJs.handleCreditCardNumberKey(e, $this.creditCardNumberMask);
   });
-  this.cardNumberInput.keyup(function(e) {
+  this.cardNumberInput.keyup(function() {
     $this.refreshCreditCardTypeIcon();
   });
   //this.cardNumberInput.change(CardJs.handleCreditCardNumberChange);
@@ -962,57 +1051,59 @@ CardJs.prototype.initCardNumberInput = function() {
 };
 
 
-
+/**
+ * Initialise the name input
+ */
 CardJs.prototype.initNameInput = function() {
-  this.nameInput = this.elem.find(".name");
-  if(this.nameInput[0]) {
-    this.captureName = true;
-    this.nameInput.detach();
-  } else {
-    this.nameInput = $("<input class='name' />");
+
+  // Enable name input if a field has been created
+  this.captureName = this.elem.find(".name")[0] != null;
+
+  // Find or create the name input element
+  this.nameInput = CardJs.detachOrCreateElement(this.elem, ".name", "<input class='name' />");
+
+  // Ensure the name element has a field name
+  if (!CardJs.elementHasAttribute(this.nameInput, "name")) {
+    this.nameInput.attr("name", "card-number");
   }
 
-  if(!this.nameInput.attr("placeholder")) {
+  // Ensure the name element has a placeholder
+  if (!CardJs.elementHasAttribute(this.nameInput, "placeholder")) {
     this.nameInput.attr("placeholder", CardJs.NAME_PLACEHOLDER);
   }
 };
 
 
+/**
+ * Initialise the expiry month input
+ */
 CardJs.prototype.initExpiryMonthInput = function() {
-  this.expiryMonthInput = this.elem.find(".expiry-month");
-  if(this.expiryMonthInput[0]) {
-    this.expiryMonthInput.detach();
-  } else {
-    this.expiryMonthInput = $("<input class='expiry-month' />");
-  }
+  this.expiryMonthInput = CardJs.detachOrCreateElement(this.elem, ".expiry-month", "<input class='expiry-month' />");
 };
 
 
+/**
+ * Initialise the expiry year input
+ */
 CardJs.prototype.initExpiryYearInput = function() {
-  this.expiryYearInput = this.elem.find(".expiry-year");
-  if(this.expiryYearInput[0]) {
-    this.expiryYearInput.detach();
-  } else {
-    this.expiryYearInput = $("<input class='expiry-year' />");
-  }
+  this.expiryYearInput = CardJs.detachOrCreateElement(this.elem, ".expiry-year", "<input class='expiry-year' />");
 };
 
 
+/**
+ * Initialise the card CVC input
+ */
 CardJs.prototype.initCvcInput = function() {
 
-  var $this = this;
+  // Find or create the CVC input element
+  this.cvcInput = CardJs.detachOrCreateElement(this.elem, ".cvc", "<input class='cvc' />");
 
-  this.cvcInput = this.elem.find(".cvc");
-  if(this.cvcInput[0]) {
-    this.cvcInput.detach();
-  } else {
-    this.cvcInput = $("<input class='cvc' />");
+  // Ensure the CVC has a placeholder
+  if (!CardJs.elementHasAttribute(this.cvcInput, "placeholder")) {
+    this.cvcInput.attr("placeholder", CardJs.CVC_PLACEHOLDER);
   }
 
   this.cvcInput.attr("type", "tel");
-  if(!this.cvcInput.attr("placeholder")) {
-    this.cvcInput.attr("placeholder", CardJs.CVC_PLACEHOLDER);
-  }
   this.cvcInput.attr("maxlength", CardJs.CVC_MASK_3.length);
   this.cvcInput.attr("x-autocompletetype", "cc-csc");
   this.cvcInput.attr("autocompletetype", "cc-csc");
@@ -1024,6 +1115,7 @@ CardJs.prototype.initCvcInput = function() {
   //
   // Events
   //
+  var $this = this;
   this.cvcInput.keydown(CardJs.filterNumberOnlyKey);
   this.cvcInput.on('paste', function() {
     setTimeout(function() {
@@ -1034,11 +1126,12 @@ CardJs.prototype.initCvcInput = function() {
 
 
 
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 
 
 CardJs.prototype.setupCardNumberInput = function() {
-  if(this.stripe) { this.cardNumberInput.attr("data-stripe", "number"); }
+  if (this.stripe) { this.cardNumberInput.attr("data-stripe", "number"); }
   this.elem.append("<div class='card-number-wrapper'></div>");
   var wrapper = this.elem.find(".card-number-wrapper");
   wrapper.append(this.cardNumberInput);
@@ -1049,7 +1142,7 @@ CardJs.prototype.setupCardNumberInput = function() {
 
 
 CardJs.prototype.setupNameInput = function() {
-  if(this.captureName) {
+  if (this.captureName) {
     this.elem.append("<div class='name-wrapper'></div>");
     var wrapper = this.elem.find(".name-wrapper");
     wrapper.append(this.nameInput);
@@ -1066,6 +1159,9 @@ CardJs.prototype.setupExpiryInput = function() {
 
   var expiryInput;
 
+  //
+  // Use dropdowns
+  //
   if(this.EXPIRY_USE_DROPDOWNS) {
     expiryInput = $("<div></div>");
 
@@ -1106,22 +1202,43 @@ CardJs.prototype.setupExpiryInput = function() {
     expiryInput.append(this.expiryMonthInput);
     expiryInput.append(this.expiryYearInput);
 
-  } else {
+  }
 
+  // ---
+
+  //
+  // Use single text field input for card expiry
+  //
+  else {
     expiryInput = $("<div></div>");
-    this.expiryMonthInput = $("<input type='hidden' name='expiry-month' />");
-    this.expiryYearInput = $("<input type='hidden' name='expiry-year' />");
 
-    if(this.stripe) {
+    // Ensure the expiry month is hidden
+    if (this.expiryMonthInput.attr("type") != "hidden") {
+      this.expiryMonthInput.attr("type", "hidden");
+    }
+
+    // Ensure the expiry year is hidden
+    if (this.expiryYearInput.attr("type") != "hidden") {
+      this.expiryYearInput.attr("type", "hidden");
+    }
+
+    // Add stripe data values to expiry inputs if stripe support enabled
+    if (this.stripe) {
       this.expiryMonthInput.attr("data-stripe", "exp-month");
       this.expiryYearInput.attr("data-stripe", "exp-year");
     }
 
-    this.expiryMonthYearInput = $("<input class='expiry' />");
-    this.expiryMonthYearInput.attr("type", "tel");
-    if(!this.expiryMonthYearInput.attr("placeholder")) {
+    // --- --- ---
+
+    // Construct the single expiry input for both expiry month and year
+    this.expiryMonthYearInput = CardJs.detachOrCreateElement(this.elem, ".expiry", "<input class='expiry' />");
+
+    // Ensure the expiry input has a placeholder
+    if (!CardJs.elementHasAttribute(this.expiryMonthYearInput, "placeholder")) {
       this.expiryMonthYearInput.attr("placeholder", CardJs.EXPIRY_PLACEHOLDER);
     }
+
+    this.expiryMonthYearInput.attr("type", "tel");
     this.expiryMonthYearInput.attr("maxlength", CardJs.EXPIRY_MASK.length);
     this.expiryMonthYearInput.attr("x-autocompletetype", "cc-exp");
     this.expiryMonthYearInput.attr("autocompletetype", "cc-exp");
@@ -1129,11 +1246,12 @@ CardJs.prototype.setupExpiryInput = function() {
     this.expiryMonthYearInput.attr("spellcheck", "off");
     this.expiryMonthYearInput.attr("autocapitalize", "off");
 
-    var $this = this;
+    // ---
 
     //
     // Events
     //
+    var $this = this;
     this.expiryMonthYearInput.keydown(function(e) {
       CardJs.handleExpiryKey(e);
 
@@ -1151,7 +1269,7 @@ CardJs.prototype.setupExpiryInput = function() {
       }
     });
 
-    this.expiryMonthYearInput.blur(function(e) {
+    this.expiryMonthYearInput.blur(function() {
       $this.refreshExpiryMonthValidation();
     });
 
@@ -1197,36 +1315,11 @@ CardJs.prototype.expiryMonth = function() {
 };
 
 
-
-CardJs.isValidMonth = function(expiryMonth) {
-  return (expiryMonth >= 1 && expiryMonth <= 12);
-};
-
-
-CardJs.isExpiryValid = function(month, year) {
-  var today = new Date();
-  var currentMonth = (today.getMonth() + 1);
-  var currentYear = "" + today.getFullYear();
-
-  if(("" + year).length == 2) {
-    year = currentYear.substring(0, 2) + "" + year;
-  }
-
-  currentMonth = parseInt(currentMonth);
-  currentYear = parseInt(currentYear);
-  month = parseInt(month);
-  year = parseInt(year);
-
-  return CardJs.isValidMonth(month)
-    && ((year > currentYear) || (year == currentYear && month >= currentMonth));
-};
-
-
 /**
  * Refresh whether the expiry month is valid (update display to reflect)
  */
 CardJs.prototype.refreshExpiryMonthValidation = function() {
-   CardJs.isExpiryValid(this.getExpiryMonth(), this.getExpiryYear())
+  CardJs.isExpiryValid(this.getExpiryMonth(), this.getExpiryYear())
     ? this.setExpiryMonthAsValid() : this.setExpiryMonthAsInvalid();
 };
 
@@ -1247,9 +1340,81 @@ CardJs.prototype.setExpiryMonthAsValid = function() {
  * Update the display to highlight the expiry month as invalid.
  */
 CardJs.prototype.setExpiryMonthAsInvalid = function() {
-  if(this.EXPIRY_USE_DROPDOWNS) {
+  if (this.EXPIRY_USE_DROPDOWNS) {
 
   } else {
     this.expiryMonthYearInput.parent().addClass("has-error");
   }
+};
+
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+
+/**
+ * Does the given element have an attribute with the given attribute name
+ *
+ * @param element
+ * @param attributeName
+ * @returns {boolean}
+ */
+CardJs.elementHasAttribute = function(element, attributeName) {
+  var attr = $(element).attr(attributeName);
+  return typeof attr !== typeof undefined && attr !== false;
+};
+
+
+/**
+ * Detach an element if it exists, or create a new one if it doesn't.
+ *
+ * @param parentElement
+ * @param selector
+ * @param html
+ * @returns {*}
+ */
+CardJs.detachOrCreateElement = function(parentElement, selector, html) {
+  var element = parentElement.find(selector);
+  if (element[0]) {
+    element.detach();
+  } else {
+    element = $(html);
+  }
+  return element;
+};
+
+
+/**
+ * Is the given month a valid month?
+ *
+ * @param expiryMonth
+ * @returns {boolean}
+ */
+CardJs.isValidMonth = function(expiryMonth) {
+  return (expiryMonth >= 1 && expiryMonth <= 12);
+};
+
+
+/**
+ * Is the given card expiry (month and year) valid?
+ *
+ * @param month
+ * @param year
+ * @returns {boolean}
+ */
+CardJs.isExpiryValid = function(month, year) {
+  var today = new Date();
+  var currentMonth = (today.getMonth() + 1);
+  var currentYear = "" + today.getFullYear();
+
+  if (("" + year).length == 2) {
+    year = currentYear.substring(0, 2) + "" + year;
+  }
+
+  currentMonth = parseInt(currentMonth);
+  currentYear = parseInt(currentYear);
+  month = parseInt(month);
+  year = parseInt(year);
+
+  return CardJs.isValidMonth(month)
+    && ((year > currentYear) || (year == currentYear && month >= currentMonth));
 };
