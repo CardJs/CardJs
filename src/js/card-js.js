@@ -1418,3 +1418,6 @@ CardJs.isExpiryValid = function(month, year) {
   return CardJs.isValidMonth(month)
     && ((year > currentYear) || (year == currentYear && month >= currentMonth));
 };
+
+
+exports.module = CardJs
