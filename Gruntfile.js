@@ -27,8 +27,8 @@ module.exports = function(grunt) {
       },
       js: {
         files: {
-          "card-js.min.js": [ "src/js/card-js.js" ],
-          "card-js.jquery.min.js": [ "src/js/**/*.js" ]
+          "card-js.core.min.js": [ "src/js/card-js.js" ],
+          "card-js.min.js": [ "src/js/**/*.js" ]
         }
       }
     },

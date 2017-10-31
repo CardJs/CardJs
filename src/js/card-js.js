@@ -1,6 +1,3 @@
-CardJs.prototype.constructor = CardJs ;
-
-
 /**
  * @class CardJs
  *
@@ -1419,5 +1416,8 @@ CardJs.isExpiryValid = function(month, year) {
     && ((year > currentYear) || (year == currentYear && month >= currentMonth));
 };
 
+CardJs.prototype.constructor = CardJs;
 
-exports.module = CardJs
+try {
+  exports.CardJs = CardJs;
+} catch (e) {}
