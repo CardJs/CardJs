@@ -28,6 +28,10 @@
     "test",
     "tests"
   ],
+  "scripts": {
+    "build": "grunt build",
+    "watch": "grunt"
+  },
   "dependences": {},
   "devDependencies": {
     "grunt": "^1.0.1",
