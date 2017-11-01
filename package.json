@@ -4,7 +4,7 @@
     "Colin Stannard <contact@cardjs.co.uk>"
   ],
   "description": "Credit Card input form with validation",
-  "version": "1.0.13",
+  "version": "1.1.1",
   "main": "card-js.min.js",
   "moduleType": [
     "globals"
