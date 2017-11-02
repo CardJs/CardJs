@@ -1266,6 +1266,13 @@ CardJs.prototype.setupExpiryInput = function() {
       }
     });
 
+    this.expiryMonthYearInput.on('blur input', function(e) {
+      $this.updateHiddenExpiryFields();
+    });
+    this.cardNumberInput.on('blur input', function(e) {
+      $this.updateHiddenExpiryFields();
+    });
+
     this.expiryMonthYearInput.blur(function() {
       $this.refreshExpiryMonthValidation();
     });
@@ -1286,6 +1293,18 @@ CardJs.prototype.setupExpiryInput = function() {
   wrapper.append("<div class='icon'></div>");
   wrapper.find(".icon").append(CardJs.CALENDAR_SVG);
 };
+
+
+CardJs.prototype.updateHiddenExpiryFields = function () {
+  var vals = this.expiryMonthYearInput.val().match(/^\s*(\d+)\s*\/\s*(\d+)\s*$/);
+  if (vals != null) {
+    var month = vals[1];
+    var year = vals[2];
+    this.expiryMonthInput.val(month);
+    this.expiryYearInput.val(year);
+    this.expiryMonthYearInput.val(month + " / " + year);
+  }
+}
 
 
 CardJs.prototype.setupCvcInput = function() {
