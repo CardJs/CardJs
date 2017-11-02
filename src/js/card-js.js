@@ -1253,15 +1253,18 @@ CardJs.prototype.setupExpiryInput = function() {
       CardJs.handleExpiryKey(e);
 
       var val = $this.expiryMonthYearInput.val();
+      
+      if((parseInt(val) < 1 || parseInt(val) > 12) && CardJs.keyIsNumber(e)) {
+        val = val.substr(0,1);
+        $this.expiryMonthYearInput.val(val);
+      }
 
-      if(val.length == 1 && parseInt(val) > 1 && CardJs.keyIsNumber(e)) {
+      if(val.length === 1 && parseInt(val) > 1 && CardJs.keyIsNumber(e)) {
         $this.expiryMonthYearInput.val(CardJs.applyFormatMask("0" + val, CardJs.EXPIRY_MASK));
       }
 
       if(!$this.EXPIRY_USE_DROPDOWNS && $this.expiryMonthYearInput != null) {
         $this.expiryMonthInput.val($this.expiryMonth());
-
-
         $this.expiryYearInput.val(val.length == 7 ? val.substr(5,2) : null);
       }
     });
