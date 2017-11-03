@@ -1236,6 +1236,7 @@ CardJs.prototype.setupExpiryInput = function() {
     }
 
     this.expiryMonthYearInput.attr("type", "tel");
+    this.expiryMonthYearInput.attr("name", "expiry-month-year");
     this.expiryMonthYearInput.attr("maxlength", CardJs.EXPIRY_MASK.length);
     this.expiryMonthYearInput.attr("x-autocompletetype", "cc-exp");
     this.expiryMonthYearInput.attr("autocompletetype", "cc-exp");
