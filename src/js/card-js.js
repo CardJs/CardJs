@@ -1246,6 +1246,9 @@ CardJs.prototype.setupExpiryInput = function() {
     this.expiryMonthYearInput.attr("spellcheck", "off");
     this.expiryMonthYearInput.attr("autocapitalize", "off");
 
+    // Add help block text to expiry
+    this.expiryHelpBlock = $("<span class='help-block'></span>");
+
     // ---
 
     //
@@ -1280,6 +1283,7 @@ CardJs.prototype.setupExpiryInput = function() {
     });
 
     expiryInput.append(this.expiryMonthYearInput);
+    expiryInput.append(this.expiryHelpBlock);
     expiryInput.append(this.expiryMonthInput);
     expiryInput.append(this.expiryYearInput);
   }
@@ -1332,6 +1336,7 @@ CardJs.prototype.setExpiryMonthAsValid = function() {
 
   } else {
     this.expiryMonthYearInput.parent().removeClass("has-error");
+    this.expiryHelpBlock.text('');
   }
 };
 
@@ -1344,6 +1349,7 @@ CardJs.prototype.setExpiryMonthAsInvalid = function() {
 
   } else {
     this.expiryMonthYearInput.parent().addClass("has-error");
+    this.expiryHelpBlock.text('Expiry is invalid');
   }
 };
 

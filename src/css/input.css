@@ -106,6 +106,10 @@
   box-shadow: none;
 }
 
+.card-js .has-error .help-block {
+  color: #F64B2F;
+}
+
 
 
 
