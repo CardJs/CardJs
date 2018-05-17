@@ -1,6 +1,3 @@
-CardJs.prototype.constructor = CardJs ;
-
-
 /**
  * @class CardJs
  *
@@ -1239,6 +1236,7 @@ CardJs.prototype.setupExpiryInput = function() {
     }
 
     this.expiryMonthYearInput.attr("type", "tel");
+    this.expiryMonthYearInput.attr("name", "expiry-month-year");
     this.expiryMonthYearInput.attr("maxlength", CardJs.EXPIRY_MASK.length);
     this.expiryMonthYearInput.attr("x-autocompletetype", "cc-exp");
     this.expiryMonthYearInput.attr("autocompletetype", "cc-exp");
@@ -1256,17 +1254,27 @@ CardJs.prototype.setupExpiryInput = function() {
       CardJs.handleExpiryKey(e);
 
       var val = $this.expiryMonthYearInput.val();
+      
+      if((parseInt(val) < 1 || parseInt(val) > 12) && CardJs.keyIsNumber(e)) {
+        val = val.substr(0,1);
+        $this.expiryMonthYearInput.val(val);
+      }
 
-      if(val.length == 1 && parseInt(val) > 1 && CardJs.keyIsNumber(e)) {
+      if(val.length === 1 && parseInt(val) > 1 && CardJs.keyIsNumber(e)) {
         $this.expiryMonthYearInput.val(CardJs.applyFormatMask("0" + val, CardJs.EXPIRY_MASK));
       }
 
       if(!$this.EXPIRY_USE_DROPDOWNS && $this.expiryMonthYearInput != null) {
         $this.expiryMonthInput.val($this.expiryMonth());
-
-
         $this.expiryYearInput.val(val.length == 7 ? val.substr(5,2) : null);
       }
+    });
+
+    this.expiryMonthYearInput.on('blur input', function(e) {
+      $this.updateHiddenExpiryFields();
+    });
+    this.cardNumberInput.on('blur input', function(e) {
+      $this.updateHiddenExpiryFields();
     });
 
     this.expiryMonthYearInput.blur(function() {
@@ -1289,6 +1297,18 @@ CardJs.prototype.setupExpiryInput = function() {
   wrapper.append("<div class='icon'></div>");
   wrapper.find(".icon").append(CardJs.CALENDAR_SVG);
 };
+
+
+CardJs.prototype.updateHiddenExpiryFields = function () {
+  var vals = this.expiryMonthYearInput.val().match(/^\s*(\d+)\s*\/\s*(\d+)\s*$/);
+  if (vals != null) {
+    var month = vals[1];
+    var year = vals[2];
+    this.expiryMonthInput.val(month);
+    this.expiryYearInput.val(year);
+    this.expiryMonthYearInput.val(month + " / " + year);
+  }
+}
 
 
 CardJs.prototype.setupCvcInput = function() {
@@ -1418,3 +1438,9 @@ CardJs.isExpiryValid = function(month, year) {
   return CardJs.isValidMonth(month)
     && ((year > currentYear) || (year == currentYear && month >= currentMonth));
 };
+
+CardJs.prototype.constructor = CardJs;
+
+try {
+  exports.CardJs = CardJs;
+} catch (e) {}

@@ -18,6 +18,20 @@ module.exports = function(grunt) {
     },
 
 
+    copy: {
+      images: {
+        files: [
+          { 
+            expand: true,
+            cwd: 'src', 
+            src: ['**/*.{png,jpg,svg}'], 
+            dest:'images/'
+          }
+        ]
+      }
+    },
+
+
     //
     // JavaScript Minify
     //
@@ -27,6 +41,7 @@ module.exports = function(grunt) {
       },
       js: {
         files: {
+          "card-js.core.min.js": [ "src/js/card-js.js" ],
           "card-js.min.js": [ "src/js/**/*.js" ]
         }
       }
@@ -68,12 +83,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
 
   //
   // Task definition
   //
   grunt.registerTask('default', ['watch']);
-  grunt.registerTask('build', ['cssmin:css', 'uglify:js']);
+  grunt.registerTask('build', ['cssmin:css', 'uglify:js', 'copy:images']);
 
 };
