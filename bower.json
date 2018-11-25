@@ -4,7 +4,10 @@
     "Colin Stannard <colin@cbsindustries.com>"
   ],
   "description": "Credit Card input form with validation",
-  "main": "./card-js.min.js",
+  "main": [
+     "./card-js.min.css", 
+     "./card-js.min.js"
+  ],
   "homepage": "https://cardjs.co.uk",
   "moduleType": [
     "globals"
