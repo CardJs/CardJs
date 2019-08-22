@@ -789,6 +789,9 @@ CardJs.prototype.refreshCreditCardNumberFormat = function() {
  *
  */
 CardJs.prototype.refreshExpiryMonthYearInput = function() {
+  if (this.expiryMonthInput.val() != null || this.expiryYearInput.val() != null) {
+    this.expiryMonthYearInput.val(this.expiryMonthInput.val() + '/' + this.expiryYearInput.val())
+  }
   var numbersOnly = CardJs.numbersOnlyString($(this.expiryMonthYearInput).val());
   var formattedNumber = CardJs.applyFormatMask(numbersOnly, CardJs.EXPIRY_MASK);
   $(this.expiryMonthYearInput).val(formattedNumber);
