@@ -22,6 +22,12 @@
     },
     cvc: function() {
       return this.data("cardjs").getCvc();
+    },
+    reload: function () {
+      this.data("cardjs").refreshCreditCardTypeIcon();
+      this.data("cardjs").refreshCreditCardNumberFormat();
+      this.data("cardjs").refreshExpiryMonthYearInput();
+      this.data("cardjs").refreshCvc();
     }
   };
 
