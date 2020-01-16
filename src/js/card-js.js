@@ -778,6 +778,36 @@ CardJs.prototype.refreshCreditCardTypeIcon = function() {
 /**
  *
  */
+CardJs.prototype.validationCardNumber = function () {
+  let numberString = this.cardNumberInput.val();
+  let number = numberString.replace(/ /g, '');
+  let longitud = number.length;
+  let cifra = null;
+  let cifra_cad = null;
+  let suma = 0;
+  for (var i = 0; i < longitud; i += 2) {
+    cifra = parseInt(number.charAt(i)) * 2;
+    if (cifra > 9) {
+      cifra_cad = cifra.toString();
+      cifra = parseInt(cifra_cad.charAt(0)) +
+      parseInt(cifra_cad.charAt(1));
+    }
+    suma += cifra;
+  }
+  for (var i = 1; i < longitud; i += 2) {
+    suma += parseInt(number.charAt(i));
+  }
+  if ((suma % 10) == 0) {
+    this.cardNumberInput.parent().removeClass("has-error");
+  } else {
+    this.cardNumberInput.parent().addClass("has-error");
+  }
+};
+
+
+/**
+ *
+ */
 CardJs.prototype.refreshCreditCardNumberFormat = function() {
   var numbersOnly = CardJs.numbersOnlyString($(this.cardNumberInput).val());
   var formattedNumber = CardJs.applyFormatMask(numbersOnly, this.creditCardNumberMask);
@@ -789,6 +819,12 @@ CardJs.prototype.refreshCreditCardNumberFormat = function() {
  *
  */
 CardJs.prototype.refreshExpiryMonthYearInput = function() {
+  if (this.expiryMonthInput.val() != null || this.expiryYearInput.val() != null) {
+    var MontYear = this.expiryMonthInput.val() + this.expiryYearInput.val();
+    if (this.expiryMonthInput.val() < 10) { MontYear = "0" + MontYear };
+    this.expiryMonthYearInput.val(CardJs.applyFormatMask(MontYear, CardJs.EXPIRY_MASK));
+    this.refreshExpiryMonthValidation();
+  }
   var numbersOnly = CardJs.numbersOnlyString($(this.expiryMonthYearInput).val());
   var formattedNumber = CardJs.applyFormatMask(numbersOnly, CardJs.EXPIRY_MASK);
   $(this.expiryMonthYearInput).val(formattedNumber);
